@@ -36,6 +36,7 @@ const dict = {
     "hero.supply": "SUPPLY",
     "hero.decimals": "DECIMALS",
     "hero.holders": "HOLDERS",
+    "hero.price": "PRICE",
     "hero.explorer": "explorer",
 
     "story.label": "origen",
@@ -154,6 +155,7 @@ const dict = {
     "hero.supply": "SUPPLY",
     "hero.decimals": "DECIMALS",
     "hero.holders": "HOLDERS",
+    "hero.price": "PRICE",
     "hero.explorer": "explorer",
 
     "story.label": "origin",

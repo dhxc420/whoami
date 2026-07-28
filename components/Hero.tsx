@@ -224,6 +224,10 @@ export default function Hero() {
                 </strong>
               </div>
               <div>
+                <span>{t("hero.price")}</span>
+                <strong title={onchain.priceUsd?.toString()}>{onchain.price}</strong>
+              </div>
+              <div>
                 <span>{t("hero.supply")}</span>
                 <strong title={onchain.supplyRaw}>{onchain.supply}</strong>
               </div>
