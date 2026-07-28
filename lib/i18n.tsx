@@ -129,15 +129,17 @@ const dict = {
     "community.sloganSub": "EL FUTURO ES DE LOS AMIGOS",
 
     "media.label": "media",
-    "media.title": "Wallpapers oficiales",
-    "media.hint": "assets · mobile · download",
+    "media.title": "Media oficial",
+    "media.hint": "assets · wallpapers · badge",
     "media.lead":
-      "Arte de marca para tu pantalla. Descarga y úsalo libremente en la comunidad.",
+      "Arte de marca para tu pantalla y perfiles. Descarga y úsalo libremente en la comunidad.",
     "media.download": "Descargar",
     "media.w1.title": "WE VERIFY",
     "media.w1.meta": "1080×1920 · PNG · mobile",
     "media.w2.title": "AUDIT MODE",
     "media.w2.meta": "1080×1920 · PNG · mobile",
+    "media.w3.title": "F13NDS BADGE",
+    "media.w3.meta": "square · PNG · avatar / badge",
 
     "footer.copy": "EOF · © 2026 fr13nds · $WHOAMI · community fan page",
     "mobile.buy": "Compra",
@@ -261,15 +263,17 @@ const dict = {
     "community.sloganSub": "THE FUTURE BELONGS TO FRIENDS",
 
     "media.label": "media",
-    "media.title": "Official wallpapers",
-    "media.hint": "assets · mobile · download",
+    "media.title": "Official media",
+    "media.hint": "assets · wallpapers · badge",
     "media.lead":
-      "Brand art for your lock screen. Download freely for the community.",
+      "Brand art for lock screens and profiles. Download freely for the community.",
     "media.download": "Download",
     "media.w1.title": "WE VERIFY",
     "media.w1.meta": "1080×1920 · PNG · mobile",
     "media.w2.title": "AUDIT MODE",
     "media.w2.meta": "1080×1920 · PNG · mobile",
+    "media.w3.title": "F13NDS BADGE",
+    "media.w3.meta": "square · PNG · avatar / badge",
 
     "footer.copy": "EOF · © 2026 fr13nds · $WHOAMI · community fan page",
     "mobile.buy": "Buy",
