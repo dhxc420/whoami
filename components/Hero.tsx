@@ -272,7 +272,7 @@ export default function Hero() {
 
           <div className={styles.meta}>
             <div className={styles.status}>
-              <span className={styles.dot} aria-hidden />
+              <span className={styles.liveDot} aria-hidden />
               {t("hero.live")}
               <span className={styles.cursor} aria-hidden>
                 _
