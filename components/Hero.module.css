@@ -373,15 +373,15 @@
   max-width: 36rem;
   padding: 1.1rem 1.15rem;
   /* Always dark glass — hero art is dark in both themes */
-  background: rgba(2, 3, 4, 0.32);
+  background: rgba(2, 3, 4, 0.18);
   border: 1px solid rgba(255, 30, 30, 0.28);
-  backdrop-filter: blur(8px) saturate(1.05);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(5px) saturate(1.05);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
   color: #eef2f4;
 }
 
 :global([data-theme="light"]) .ctaPanel {
-  background: rgba(2, 3, 4, 0.3);
+  background: rgba(2, 3, 4, 0.16);
   border-color: rgba(255, 30, 30, 0.32);
 }
 
@@ -635,14 +635,14 @@
   .ctaPanel {
     margin-top: auto;
     padding: 0.85rem 0.9rem;
-    background: rgba(2, 3, 4, 0.26);
+    background: rgba(2, 3, 4, 0.14);
     border-color: rgba(255, 30, 30, 0.4);
-    backdrop-filter: blur(6px) saturate(1.05);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px) saturate(1.05);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   }
 
   :global([data-theme="light"]) .ctaPanel {
-    background: rgba(2, 3, 4, 0.26);
+    background: rgba(2, 3, 4, 0.12);
   }
 
   .onchain {
