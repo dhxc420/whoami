@@ -4,13 +4,21 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 1.25rem;
-  padding: 1.1rem 1.15rem;
-  margin-bottom: 1.5rem;
+  padding: 1.25rem 1.2rem;
+  margin-bottom: 1.75rem;
   border: 1px solid var(--line-strong);
   background:
-    linear-gradient(135deg, rgba(255, 30, 30, 0.08), transparent 40%),
-    rgba(0, 0, 0, 0.55);
+    linear-gradient(135deg, var(--red-soft), transparent 45%),
+    var(--bg-elevated);
   position: relative;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
+}
+
+:global([data-theme="dark"]) .contractBox {
+  background:
+    linear-gradient(135deg, rgba(255, 30, 30, 0.1), transparent 40%),
+    rgba(0, 0, 0, 0.55);
+  box-shadow: none;
 }
 
 .contractBox::before,
@@ -38,81 +46,105 @@
 
 .address {
   display: block;
-  margin-top: 0.5rem;
-  font-size: clamp(0.7rem, 2.1vw, 0.88rem);
+  margin-top: 0.55rem;
+  font-size: clamp(0.72rem, 2.1vw, 0.9rem);
   color: var(--cyan);
   word-break: break-all;
+  font-weight: 600;
 }
 
 .specGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.65rem;
-  margin-bottom: 2rem;
+  gap: 0.75rem;
+  margin-bottom: 2.25rem;
 }
 
 .spec {
-  background: rgba(0, 0, 0, 0.45);
-  border: 1px solid var(--line);
-  padding: 1rem 0.95rem;
-  transition: border-color 0.15s ease;
+  background: var(--bg-elevated);
+  border: 1px solid var(--line-strong);
+  padding: 1.1rem 1rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+:global([data-theme="dark"]) .spec {
+  background: rgba(8, 10, 12, 0.85);
 }
 
 .spec:hover {
-  border-color: var(--red-dim);
+  border-color: var(--red);
+  box-shadow: 0 0 0 1px rgba(255, 30, 30, 0.12);
+}
+
+.spec :global(.mono-sm) {
+  color: var(--muted);
+  font-weight: 500;
 }
 
 .specValue {
-  margin-top: 0.45rem;
-  font-size: 1.15rem;
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--white);
 }
 
 .specHint {
-  margin-top: 0.3rem;
-  font-size: 0.65rem;
+  margin-top: 0.35rem;
+  font-size: 0.68rem;
   letter-spacing: 0.06em;
   color: var(--dim);
 }
 
 .funcsLabel {
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   letter-spacing: 0.06em;
   color: var(--green);
   margin-bottom: 1rem;
+  font-weight: 500;
 }
 
 .funcGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0.65rem;
+  gap: 0.75rem;
 }
 
 .func {
-  border: 1px dashed var(--line-strong);
-  padding: 1rem;
-  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--line-strong);
+  padding: 1.15rem 1.1rem;
+  background: var(--bg-elevated);
+  transition: border-color 0.15s ease;
+}
+
+:global([data-theme="dark"]) .func {
+  background: rgba(8, 10, 12, 0.75);
+  border-style: dashed;
+}
+
+.func:hover {
+  border-color: var(--red);
 }
 
 .funcId {
   color: var(--red);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   letter-spacing: 0.08em;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
 }
 
 .func h3 {
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.45rem;
   color: var(--cyan);
 }
 
 .func p:last-child {
   color: var(--muted);
-  font-size: 0.8rem;
+  font-size: 0.84rem;
+  line-height: 1.5;
 }
 
 @media (max-width: 800px) {
@@ -128,5 +160,9 @@
 @media (max-width: 480px) {
   .specGrid {
     grid-template-columns: 1fr;
+  }
+
+  .contractBox {
+    padding: 1rem;
   }
 }
