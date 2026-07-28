@@ -372,10 +372,28 @@
   margin-top: 1.5rem;
   max-width: 36rem;
   padding: 1.1rem 1.15rem;
-  background: var(--cta-panel);
-  border: 1px solid rgba(255, 30, 30, 0.25);
-  backdrop-filter: blur(10px);
+  /* Always dark glass — hero art is dark in both themes */
+  background: rgba(2, 3, 4, 0.32);
+  border: 1px solid rgba(255, 30, 30, 0.28);
+  backdrop-filter: blur(8px) saturate(1.05);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
+  color: #eef2f4;
+}
+
+:global([data-theme="light"]) .ctaPanel {
+  background: rgba(2, 3, 4, 0.3);
+  border-color: rgba(255, 30, 30, 0.32);
+}
+
+.ctaPanel :global(.btn:not(.btn-primary)) {
+  color: #eef2f4;
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.ctaPanel :global(.btn:not(.btn-primary):hover) {
+  border-color: var(--red);
+  color: #fff;
 }
 
 .onchain {
@@ -390,7 +408,7 @@
   gap: 0.45rem;
   font-size: 0.65rem;
   letter-spacing: 0.12em;
-  color: var(--green);
+  color: #39ff8a;
   margin-bottom: 0.75rem;
 }
 
@@ -439,13 +457,13 @@
 .onchainGrid span {
   font-size: 0.58rem;
   letter-spacing: 0.1em;
-  color: var(--dim);
+  color: rgba(180, 190, 198, 0.85);
 }
 
 .onchainGrid strong {
   font-size: 0.78rem;
   font-weight: 600;
-  color: var(--white);
+  color: #eef2f4;
   letter-spacing: 0.02em;
   white-space: nowrap;
   overflow: hidden;
@@ -454,7 +472,7 @@
 
 .onchainGrid em {
   font-style: normal;
-  color: var(--cyan);
+  color: #4dffd0;
   font-size: 0.68rem;
   margin-left: 0.15rem;
 }
@@ -464,7 +482,7 @@
   margin-top: 0.7rem;
   font-size: 0.65rem;
   letter-spacing: 0.08em;
-  color: var(--cyan);
+  color: #4dffd0;
   text-transform: uppercase;
 }
 
@@ -491,7 +509,7 @@
   gap: 0.55rem;
   font-size: 0.68rem;
   letter-spacing: 0.1em;
-  color: var(--muted);
+  color: rgba(200, 210, 216, 0.85);
 }
 
 .dot {
@@ -515,17 +533,17 @@
   gap: 0.75rem 1.25rem;
   font-size: 0.68rem;
   letter-spacing: 0.08em;
-  color: var(--dim);
+  color: rgba(160, 170, 178, 0.9);
 }
 
 .contract {
-  color: var(--muted);
+  color: rgba(200, 210, 216, 0.9);
   transition: color 0.2s ease;
   min-height: 1.75rem;
 }
 
 .contract:hover {
-  color: var(--red);
+  color: #ff1e1e;
 }
 
 @media (max-width: 768px) {
@@ -617,14 +635,14 @@
   .ctaPanel {
     margin-top: auto;
     padding: 0.85rem 0.9rem;
-    background: rgba(2, 3, 4, 0.28);
+    background: rgba(2, 3, 4, 0.26);
     border-color: rgba(255, 30, 30, 0.4);
     backdrop-filter: blur(6px) saturate(1.05);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   }
 
   :global([data-theme="light"]) .ctaPanel {
-    background: rgba(244, 242, 237, 0.38);
+    background: rgba(2, 3, 4, 0.26);
   }
 
   .onchain {
