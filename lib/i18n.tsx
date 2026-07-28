@@ -37,7 +37,7 @@ const dict = {
     "hero.decimals": "DECIMALS",
     "hero.holders": "HOLDERS",
     "hero.price": "PRICE",
-    "hero.mcap": "MARKET CAP",
+    "hero.mcap": "MCAP (WLD)",
     "hero.explorer": "explorer",
 
     "story.label": "origen",
@@ -157,7 +157,7 @@ const dict = {
     "hero.decimals": "DECIMALS",
     "hero.holders": "HOLDERS",
     "hero.price": "PRICE",
-    "hero.mcap": "MARKET CAP",
+    "hero.mcap": "MCAP (WLD)",
     "hero.explorer": "explorer",
 
     "story.label": "origin",

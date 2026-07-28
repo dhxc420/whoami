@@ -26,7 +26,7 @@ export type OnChainInfo = {
   price: string;
   priceUsd: number | null;
   marketCap: string;
-  marketCapUsd: number | null;
+  marketCapWld: number | null;
   loading: boolean;
   error: boolean;
 };
@@ -43,7 +43,7 @@ const FALLBACK: OnChainInfo = {
   price: "—",
   priceUsd: null,
   marketCap: "—",
-  marketCapUsd: null,
+  marketCapWld: null,
   loading: false,
   error: false,
 };
@@ -78,20 +78,21 @@ function formatUsd(price: number): string {
   return `$${price.toExponential(2)}`;
 }
 
-function formatMarketCap(usd: number): string {
-  if (!Number.isFinite(usd) || usd <= 0) return "—";
-  if (usd >= 1_000_000_000) return `$${(usd / 1e9).toFixed(2)}B`;
-  if (usd >= 1_000_000) return `$${(usd / 1e6).toFixed(2)}M`;
-  if (usd >= 1_000) return `$${(usd / 1e3).toFixed(1)}K`;
-  return `$${usd.toFixed(0)}`;
+function formatMarketCapWld(wld: number): string {
+  if (!Number.isFinite(wld) || wld <= 0) return "—";
+  if (wld >= 1_000_000) return `${(wld / 1e6).toFixed(2)}M WLD`;
+  if (wld >= 10_000) return `${(wld / 1e3).toFixed(2)}K WLD`;
+  if (wld >= 1_000) {
+    return `${wld.toLocaleString("en-US", { maximumFractionDigits: 0 })} WLD`;
+  }
+  return `${wld.toFixed(2)} WLD`;
 }
 
-/** token1_raw / token0_raw from Uniswap V3 slot0 */
+/** token1 / token0 from Uniswap V3 slot0 (same decimals) */
 function ratioFromSlot0(slot0Hex: string): number {
   const sqrtPriceX96 = BigInt(slot0Hex.slice(0, 66));
-  const Q96 = 2n ** 96n;
-  const scale = 10n ** 18n;
-  return Number((sqrtPriceX96 * sqrtPriceX96 * scale) / (Q96 * Q96)) / 1e18;
+  const adj = Number(sqrtPriceX96) / 2 ** 96;
+  return adj * adj;
 }
 
 async function ethCall(to: string, data: string): Promise<string> {
@@ -120,10 +121,14 @@ async function fetchHolders(): Promise<number> {
 }
 
 /**
- * Price purely on-chain (CORS-safe RPC):
- * WHOAMI/WLD pool + WLD/USDC.e pool → WHOAMI USD
+ * Prices purely on-chain (CORS-safe RPC):
+ * WHOAMI/WLD pool → WLD per WHOAMI
+ * + WLD/USDC.e pool → WHOAMI USD
  */
-async function fetchWhoamiPriceUsd(): Promise<number> {
+async function fetchWhoamiPrices(): Promise<{
+  priceUsd: number;
+  priceWld: number;
+}> {
   const [whoamiSlot, usdcSlot] = await Promise.all([
     ethCall(POOL_WHOAMI_WLD, SLOT0_SIG),
     ethCall(POOL_USDC_WLD, SLOT0_SIG),
@@ -138,7 +143,10 @@ async function fetchWhoamiPriceUsd(): Promise<number> {
   const usdcRawPerWldRaw = ratioFromSlot0(usdcSlot);
   const wldUsd = usdcRawPerWldRaw * 10 ** 12;
 
-  return wldPerWhoami * wldUsd;
+  return {
+    priceWld: wldPerWhoami,
+    priceUsd: wldPerWhoami * wldUsd,
+  };
 }
 
 export function useOnChainInfo(): OnChainInfo {
@@ -152,19 +160,22 @@ export function useOnChainInfo(): OnChainInfo {
 
     (async () => {
       try {
-        const [supplyHex, decimalsHex, holders, priceUsd] = await Promise.all([
+        const [supplyHex, decimalsHex, holders, prices] = await Promise.all([
           ethCall(LINKS.contract, TOTAL_SUPPLY_SIG),
           ethCall(LINKS.contract, DECIMALS_SIG),
           fetchHolders().catch(() => null),
-          fetchWhoamiPriceUsd().catch(() => null),
+          fetchWhoamiPrices().catch(() => null),
         ]);
         const decimals = Number.parseInt(decimalsHex, 16);
         const supply = BigInt(supplyHex);
         const formatted = formatSupply(supply, decimals);
         const supplyHuman = Number(supply) / 10 ** decimals;
-        const marketCapUsd =
-          priceUsd !== null && Number.isFinite(supplyHuman)
-            ? priceUsd * supplyHuman
+        const priceUsd = prices?.priceUsd ?? null;
+        const priceWld = prices?.priceWld ?? null;
+        // Market cap in WLD = (WLD per WHOAMI) × total supply
+        const marketCapWld =
+          priceWld !== null && Number.isFinite(supplyHuman)
+            ? priceWld * supplyHuman
             : null;
         if (!cancelled) {
           setInfo({
@@ -180,8 +191,10 @@ export function useOnChainInfo(): OnChainInfo {
             price: priceUsd === null ? FALLBACK.price : formatUsd(priceUsd),
             priceUsd,
             marketCap:
-              marketCapUsd === null ? FALLBACK.marketCap : formatMarketCap(marketCapUsd),
-            marketCapUsd,
+              marketCapWld === null
+                ? FALLBACK.marketCap
+                : formatMarketCapWld(marketCapWld),
+            marketCapWld,
             loading: false,
             error: false,
           });
