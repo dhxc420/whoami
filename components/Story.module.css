@@ -1,0 +1,84 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(1.5rem, 5vw, 3rem);
+  align-items: start;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.quote {
+  border: 1px solid var(--line-strong);
+  background: var(--terminal-bg);
+  padding: 1rem 1.1rem;
+  color: var(--green);
+  font-size: 0.85rem;
+  max-width: 32rem;
+  box-shadow: inset 0 0 40px rgba(57, 255, 138, 0.04);
+}
+
+.prompt {
+  color: var(--red);
+  margin-right: 0.45rem;
+}
+
+.timeline {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--line-strong);
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.item {
+  display: grid;
+  gap: 0.25rem;
+  padding: 1rem 1.1rem;
+  border-bottom: 1px dashed var(--line);
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.year {
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: var(--cyan);
+}
+
+.itemTitle {
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.3rem;
+  color: var(--white);
+}
+
+.itemTitle::before {
+  content: "$ ";
+  color: var(--red);
+}
+
+.item p {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.live {
+  color: var(--red);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  animation: blink 1.4s step-end infinite;
+}
+
+@media (max-width: 800px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

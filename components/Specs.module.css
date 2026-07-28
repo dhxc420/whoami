@@ -1,0 +1,132 @@
+.contractBox {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 1.1rem 1.15rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--line-strong);
+  background:
+    linear-gradient(135deg, rgba(255, 30, 30, 0.08), transparent 40%),
+    rgba(0, 0, 0, 0.55);
+  position: relative;
+}
+
+.contractBox::before,
+.contractBox::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 1px solid var(--red);
+}
+
+.contractBox::before {
+  top: -1px;
+  left: -1px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.contractBox::after {
+  bottom: -1px;
+  right: -1px;
+  border-left: none;
+  border-top: none;
+}
+
+.address {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: clamp(0.7rem, 2.1vw, 0.88rem);
+  color: var(--cyan);
+  word-break: break-all;
+}
+
+.specGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.65rem;
+  margin-bottom: 2rem;
+}
+
+.spec {
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--line);
+  padding: 1rem 0.95rem;
+  transition: border-color 0.15s ease;
+}
+
+.spec:hover {
+  border-color: var(--red-dim);
+}
+
+.specValue {
+  margin-top: 0.45rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--white);
+}
+
+.specHint {
+  margin-top: 0.3rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  color: var(--dim);
+}
+
+.funcsLabel {
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--green);
+  margin-bottom: 1rem;
+}
+
+.funcGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.65rem;
+}
+
+.func {
+  border: 1px dashed var(--line-strong);
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.funcId {
+  color: var(--red);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.35rem;
+}
+
+.func h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: var(--cyan);
+}
+
+.func p:last-child {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 800px) {
+  .specGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .funcGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .specGrid {
+    grid-template-columns: 1fr;
+  }
+}

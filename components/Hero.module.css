@@ -1,0 +1,281 @@
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  isolation: isolate;
+}
+
+.media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: #000;
+  will-change: transform;
+}
+
+.parallaxLayer {
+  position: absolute;
+  inset: -8%;
+  will-change: transform;
+  transform: scale(1.12);
+}
+
+.image {
+  object-fit: cover;
+  filter: contrast(1.05) saturate(0.95);
+}
+
+.imageDesktop {
+  display: block;
+  object-position: center center;
+}
+
+.imageMobile {
+  display: none;
+  object-position: center 20%;
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.2) 0%,
+    transparent 35%,
+    color-mix(in srgb, var(--hero-fade) 55%, transparent) 72%,
+    var(--hero-fade) 100%
+  );
+}
+
+.binary {
+  display: none;
+}
+
+.nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem var(--gutter);
+  border-bottom: 1px solid rgba(255, 30, 30, 0.15);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent);
+}
+
+.logo {
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+}
+
+.logo::before {
+  content: "~/ ";
+  color: var(--red);
+}
+
+.navRight {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navLinks {
+  display: flex;
+  gap: 0.85rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.navLinks a::before {
+  content: "[";
+  color: var(--dim);
+}
+
+.navLinks a::after {
+  content: "]";
+  color: var(--dim);
+}
+
+.navLinks a:hover {
+  color: var(--cyan);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  padding-bottom: clamp(2.5rem, 8vw, 4.5rem);
+  padding-top: 8rem;
+}
+
+.eyebrow {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--green);
+  margin-bottom: 1rem;
+}
+
+.eyebrow::before {
+  content: "> ";
+  color: var(--red);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3rem, 12vw, 6.5rem);
+  letter-spacing: 0.02em;
+  line-height: 0.92;
+  color: var(--white);
+  text-transform: uppercase;
+  text-shadow: 2px 0 0 rgba(255, 30, 30, 0.4), -2px 0 0 rgba(0, 255, 200, 0.25);
+  animation: flicker 6s ease-in-out infinite;
+}
+
+.tagline {
+  margin-top: 1rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+}
+
+.sep {
+  margin: 0 0.6rem;
+  color: var(--dim);
+}
+
+.lead {
+  margin-top: 1.35rem;
+  max-width: 32rem;
+  color: rgba(232, 232, 232, 0.78);
+  font-size: 0.95rem;
+}
+
+.actions {
+  margin-top: 1.75rem;
+}
+
+.meta {
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 10px var(--red);
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+
+.cursor {
+  color: var(--red);
+  animation: blink 1s step-end infinite;
+  margin-left: 0.15rem;
+}
+
+.metaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--dim);
+}
+
+.contract {
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+.contract:hover {
+  color: var(--red);
+}
+
+@media (max-width: 768px) {
+  .imageDesktop {
+    display: none;
+  }
+
+  .imageMobile {
+    display: block;
+  }
+
+  .navLinks {
+    display: none;
+  }
+
+  .vignette {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.35) 0%,
+        rgba(0, 0, 0, 0.15) 35%,
+        color-mix(in srgb, var(--hero-fade) 85%, transparent) 78%,
+        var(--hero-fade) 100%
+      ),
+      linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.45) 0%,
+        transparent 40%,
+        rgba(0, 0, 0, 0.25) 100%
+      );
+  }
+
+  .binary {
+    display: flex;
+    position: absolute;
+    inset: 0;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 4rem 6vw 0;
+    pointer-events: none;
+    font-size: clamp(0.55rem, 1.2vw, 0.7rem);
+    letter-spacing: 0.35em;
+    color: rgba(225, 6, 0, 0.22);
+    opacity: 0.5;
+    animation: rain 18s linear infinite alternate;
+  }
+}
+
+/* Desktop: art already brands — CTAs + status only */
+@media (min-width: 769px) {
+  .eyebrow,
+  .title,
+  .tagline,
+  .lead {
+    display: none;
+  }
+
+  .content {
+    padding-top: 0;
+  }
+
+  .actions {
+    margin-top: 0;
+  }
+
+  .meta {
+    margin-top: 1.5rem;
+  }
+}
