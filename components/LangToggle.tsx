@@ -5,7 +5,7 @@ import styles from "./ThemeToggle.module.css";
 
 export default function LangToggle() {
   const { lang, toggle, t } = useLang();
-  const next = lang === "es" ? "en" : "es";
+  const current = lang === "es" ? "ES" : "EN";
 
   return (
     <button
@@ -16,9 +16,9 @@ export default function LangToggle() {
       title={lang === "es" ? t("lang.toEn") : t("lang.toEs")}
     >
       <span className={styles.icon} aria-hidden>
-        {lang === "es" ? "EN" : "ES"}
+        {current}
       </span>
-      <span className={styles.label}>{next}</span>
+      <span className={styles.label}>{current}</span>
     </button>
   );
 }
