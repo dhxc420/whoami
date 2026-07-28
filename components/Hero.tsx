@@ -194,7 +194,11 @@ export default function Hero() {
           <p className={`${styles.eyebrow} reveal`}>{t("hero.eyebrow")}</p>
 
           <h1 className={`${styles.title} reveal reveal-delay-1`}>
-            <BrandName />
+            <span className={styles.glitch} data-text="fr13nds">
+              <span className={styles.glitchMain}>
+                <BrandName />
+              </span>
+            </span>
           </h1>
 
           <p className={`${styles.tagline} reveal reveal-delay-2`}>

@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import MobileCta from "@/components/MobileCta";
 import Protocol from "@/components/Protocol";
+import ScrollJump from "@/components/ScrollJump";
 import Specs from "@/components/Specs";
 import Story from "@/components/Story";
 import WorldChain from "@/components/WorldChain";
@@ -18,6 +19,7 @@ export default function Home() {
       <Community />
       <Footer />
       <MobileCta />
+      <ScrollJump />
     </main>
   );
 }

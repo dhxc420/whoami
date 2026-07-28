@@ -8,7 +8,7 @@ export default function Footer() {
   const { t } = useLang();
 
   return (
-    <footer className={styles.footer}>
+    <footer id="footer" className={styles.footer}>
       <div className={`container ${styles.inner}`}>
         <div>
           <p className={styles.logo}>

@@ -76,12 +76,13 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-  /* Soft structural grid — Matrix rain sits above via canvas */
-  background-image:
-    linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
-    radial-gradient(ellipse at 50% -10%, var(--grid-glow), transparent 55%);
-  background-size: 64px 64px, 64px 64px, 100% 70vh;
+  background-image: radial-gradient(
+    ellipse at 50% -10%,
+    var(--grid-glow),
+    transparent 55%
+  );
+  background-size: 100% 70vh;
+  background-repeat: no-repeat;
   background-attachment: fixed;
   transition: background-color 0.25s ease, color 0.25s ease;
 }
