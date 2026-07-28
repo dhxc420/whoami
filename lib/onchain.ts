@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import { LINKS } from "@/lib/brand";
 
 const RPC = "https://worldchain.drpc.org";
-const POOL = "0xe211785c5ecd160612ee8277abed4aa01c0548a4";
+/** Uniswap V3 WHOAMI/WLD — token0=WLD, token1=WHOAMI */
+const POOL_WHOAMI_WLD = "0xe211785c5ecd160612ee8277abed4aa01c0548a4";
+/** Uniswap V3 USDC.e/WLD — token0=WLD, token1=USDC.e (6 decimals) */
+const POOL_USDC_WLD = "0xc19bc89ac024426f5a23c5bb8bc91d8017c90684";
 const TOKEN_API = `https://worldchain-mainnet.explorer.alchemy.com/api/v2/tokens/${LINKS.contract}`;
-const WLD_PRICE_API =
-  "https://app-backend.toolsforhumanity.com/public/v1/miniapps/prices?fiatCurrencies=USD&cryptoCurrencies=WLD";
 
 const TOTAL_SUPPLY_SIG = "0x18160ddd";
 const DECIMALS_SIG = "0x313ce567";
@@ -66,8 +67,19 @@ function formatUsd(price: number): string {
   if (!Number.isFinite(price) || price <= 0) return "—";
   if (price >= 1) return `$${price.toFixed(4)}`;
   if (price >= 0.01) return `$${price.toFixed(5)}`;
-  if (price >= 0.0001) return `$${price.toFixed(6)}`;
+  if (price >= 0.000001) {
+    const s = price.toFixed(8).replace(/0+$/, "").replace(/\.$/, "");
+    return `$${s}`;
+  }
   return `$${price.toExponential(2)}`;
+}
+
+/** token1_raw / token0_raw from Uniswap V3 slot0 */
+function ratioFromSlot0(slot0Hex: string): number {
+  const sqrtPriceX96 = BigInt(slot0Hex.slice(0, 66));
+  const Q96 = 2n ** 96n;
+  const scale = 10n ** 18n;
+  return Number((sqrtPriceX96 * sqrtPriceX96 * scale) / (Q96 * Q96)) / 1e18;
 }
 
 async function ethCall(to: string, data: string): Promise<string> {
@@ -95,26 +107,24 @@ async function fetchHolders(): Promise<number> {
   return n;
 }
 
-/** token0=WLD, token1=WHOAMI → WLD per WHOAMI from Uniswap V3 slot0 */
+/**
+ * Price purely on-chain (CORS-safe RPC):
+ * WHOAMI/WLD pool + WLD/USDC.e pool → WHOAMI USD
+ */
 async function fetchWhoamiPriceUsd(): Promise<number> {
-  const [slot0, wldRes] = await Promise.all([
-    ethCall(POOL, SLOT0_SIG),
-    fetch(WLD_PRICE_API),
+  const [whoamiSlot, usdcSlot] = await Promise.all([
+    ethCall(POOL_WHOAMI_WLD, SLOT0_SIG),
+    ethCall(POOL_USDC_WLD, SLOT0_SIG),
   ]);
 
-  const sqrtPriceX96 = BigInt(slot0.slice(0, 66));
-  const Q96 = 2n ** 96n;
-  const scale = 10n ** 18n;
-  // token1/token0 = (sqrtPriceX96/Q96)^2 = WHOAMI per WLD
-  const whoamiPerWldScaled = (sqrtPriceX96 * sqrtPriceX96 * scale) / (Q96 * Q96);
-  const wldPerWhoami = Number(scale) / Number(whoamiPerWldScaled);
+  // token0=WLD(18), token1=WHOAMI(18) → WHOAMI_raw/WLD_raw
+  const whoamiPerWld = ratioFromSlot0(whoamiSlot);
+  const wldPerWhoami = 1 / whoamiPerWld;
 
-  const wldJson = (await wldRes.json()) as {
-    result?: { prices?: { WLD?: { USD?: { amount?: string; decimals?: number } } } };
-  };
-  const usd = wldJson.result?.prices?.WLD?.USD;
-  if (!usd?.amount || usd.decimals == null) throw new Error("wld price failed");
-  const wldUsd = Number(usd.amount) / 10 ** usd.decimals;
+  // token0=WLD(18), token1=USDC.e(6) → USDC_raw/WLD_raw
+  // human USDC per WLD = rawRatio * 10^(18-6)
+  const usdcRawPerWldRaw = ratioFromSlot0(usdcSlot);
+  const wldUsd = usdcRawPerWldRaw * 10 ** 12;
 
   return wldPerWhoami * wldUsd;
 }
