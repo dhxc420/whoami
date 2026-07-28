@@ -22,7 +22,7 @@ export default function WorldChain() {
 
   return (
     <section id="world" className="section">
-      <div className="container">
+      <div className="container reveal-on-scroll">
         <div className="section-label">
           <span className="num">04</span>
           <span>{t("world.label")}</span>

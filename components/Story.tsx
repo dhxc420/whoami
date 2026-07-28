@@ -28,7 +28,7 @@ export default function Story() {
 
   return (
     <section id="story" className="section">
-      <div className="container">
+      <div className="container reveal-on-scroll">
         <div className="section-label">
           <span className="num">01</span>
           <span>{t("story.label")}</span>

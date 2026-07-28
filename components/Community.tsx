@@ -9,7 +9,7 @@ export default function Community() {
 
   return (
     <section id="community" className="section">
-      <div className="container">
+      <div className="container reveal-on-scroll">
         <div className="section-label">
           <span className="num">05</span>
           <span>{t("community.label")}</span>

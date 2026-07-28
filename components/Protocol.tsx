@@ -18,7 +18,7 @@ export default function Protocol() {
 
   return (
     <section id="protocol" className="section">
-      <div className="container">
+      <div className="container reveal-on-scroll">
         <div className="section-label">
           <span className="num">03</span>
           <span>{t("protocol.label")}</span>

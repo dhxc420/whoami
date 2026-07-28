@@ -37,7 +37,7 @@ export default function Specs() {
 
   return (
     <section id="specs" className="section">
-      <div className="container">
+      <div className="container reveal-on-scroll">
         <div className="section-label">
           <span className="num">02</span>
           <span>

@@ -64,7 +64,7 @@
   background: var(--bg-elevated);
   border: 1px solid var(--line-strong);
   padding: 1.1rem 1rem;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.2s ease;
 }
 
 :global([data-theme="dark"]) .spec {
@@ -74,6 +74,7 @@
 .spec:hover {
   border-color: var(--red);
   box-shadow: 0 0 0 1px rgba(255, 30, 30, 0.12);
+  transform: translateY(-2px);
 }
 
 .spec :global(.mono-sm) {
@@ -114,7 +115,7 @@
   border: 1px solid var(--line-strong);
   padding: 1.15rem 1.1rem;
   background: var(--bg-elevated);
-  transition: border-color 0.15s ease;
+  transition: border-color 0.15s ease, transform 0.2s ease;
 }
 
 :global([data-theme="dark"]) .func {
@@ -124,6 +125,7 @@
 
 .func:hover {
   border-color: var(--red);
+  transform: translateY(-2px);
 }
 
 .funcId {

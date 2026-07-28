@@ -11,7 +11,7 @@
   padding: 1.2rem 1.05rem;
   position: relative;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.2s ease;
 }
 
 :global([data-theme="dark"]) .card {
@@ -27,11 +27,17 @@
   right: 0.9rem;
   color: var(--red);
   font-size: 0.75rem;
+  transition: transform 0.2s ease;
 }
 
 .card:hover {
   border-color: var(--red);
   box-shadow: 0 0 0 1px rgba(255, 30, 30, 0.12);
+  transform: translateY(-3px);
+}
+
+.card:hover::before {
+  transform: translateX(3px);
 }
 
 :global([data-theme="dark"]) .card:hover {

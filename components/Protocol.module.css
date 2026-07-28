@@ -81,6 +81,7 @@
   padding: 0.85rem;
   border: 1px solid var(--line);
   background: var(--bg-elevated);
+  transition: border-color 0.15s ease, transform 0.2s ease;
 }
 
 :global([data-theme="dark"]) .layer {
@@ -89,6 +90,7 @@
 
 .layer:hover {
   border-color: var(--red);
+  transform: translateY(-2px);
 }
 
 .layerId {
