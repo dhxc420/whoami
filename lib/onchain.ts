@@ -4,11 +4,16 @@ import { useEffect, useState } from "react";
 import { LINKS } from "@/lib/brand";
 
 const RPC = "https://worldchain.drpc.org";
-/** Uniswap V3 WHOAMI/WLD — token0=WLD, token1=WHOAMI */
+/** Uniswap V3 WHOAMI/WLD — token0=WLD, token1=WHOAMI (used after graduation) */
 const POOL_WHOAMI_WLD = "0xe211785c5ecd160612ee8277abed4aa01c0548a4";
 /** Uniswap V3 USDC.e/WLD — token0=WLD, token1=USDC.e (6 decimals) */
 const POOL_USDC_WLD = "0xc19bc89ac024426f5a23c5bb8bc91d8017c90684";
 const TOKEN_API = `https://worldchain-mainnet.explorer.alchemy.com/api/v2/tokens/${LINKS.contract}`;
+
+/** Same public anon key Ani Wallet ships in its frontend */
+const ANI_SUPABASE = "https://gxdyhwkbbrblxshfajcx.supabase.co";
+const ANI_ANON_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd4ZHlod2tiYnJibHhzaGZhamN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc5ODIwMjYsImV4cCI6MjA3MzU1ODAyNn0.9-uZm_k2NXVt2P16ZRGdCFjmiAfT3M2E0TuKiLkUgaU";
 
 const TOTAL_SUPPLY_SIG = "0x18160ddd";
 const DECIMALS_SIG = "0x313ce567";
@@ -46,6 +51,12 @@ const FALLBACK: OnChainInfo = {
   marketCapWld: null,
   loading: false,
   error: false,
+};
+
+type AniLaunchpadRow = {
+  market_cap_wld: number | null;
+  current_price_num: number | null;
+  graduated: boolean | null;
 };
 
 function formatSupply(raw: bigint, decimals: number): { short: string; full: string } {
@@ -120,33 +131,39 @@ async function fetchHolders(): Promise<number> {
   return n;
 }
 
-/**
- * Prices purely on-chain (CORS-safe RPC):
- * WHOAMI/WLD pool → WLD per WHOAMI
- * + WLD/USDC.e pool → WHOAMI USD
- */
-async function fetchWhoamiPrices(): Promise<{
-  priceUsd: number;
-  priceWld: number;
-}> {
-  const [whoamiSlot, usdcSlot] = await Promise.all([
-    ethCall(POOL_WHOAMI_WLD, SLOT0_SIG),
-    ethCall(POOL_USDC_WLD, SLOT0_SIG),
-  ]);
-
-  // token0=WLD(18), token1=WHOAMI(18) → WHOAMI_raw/WLD_raw
-  const whoamiPerWld = ratioFromSlot0(whoamiSlot);
-  const wldPerWhoami = 1 / whoamiPerWld;
-
-  // token0=WLD(18), token1=USDC.e(6) → USDC_raw/WLD_raw
-  // human USDC per WLD = rawRatio * 10^(18-6)
+/** WLD → USD via Uniswap V3 USDC.e/WLD pool */
+async function fetchWldUsd(): Promise<number> {
+  const usdcSlot = await ethCall(POOL_USDC_WLD, SLOT0_SIG);
   const usdcRawPerWldRaw = ratioFromSlot0(usdcSlot);
-  const wldUsd = usdcRawPerWldRaw * 10 ** 12;
+  return usdcRawPerWldRaw * 10 ** 12;
+}
 
-  return {
-    priceWld: wldPerWhoami,
-    priceUsd: wldPerWhoami * wldUsd,
-  };
+/** Pool WHOAMI price in WLD (only meaningful after graduation / with liquidity) */
+async function fetchPoolPriceWld(): Promise<number> {
+  const whoamiSlot = await ethCall(POOL_WHOAMI_WLD, SLOT0_SIG);
+  const whoamiPerWld = ratioFromSlot0(whoamiSlot);
+  return 1 / whoamiPerWld;
+}
+
+/**
+ * Ani Wallet launchpad stats — same source as the in-app MCAP (WLD).
+ * Token is still on the bonding curve until graduated.
+ */
+async function fetchAniLaunchpad(): Promise<AniLaunchpadRow | null> {
+  const url =
+    `${ANI_SUPABASE}/rest/v1/launchpad_tokens` +
+    `?token_address=eq.${LINKS.contract}` +
+    `&select=market_cap_wld,current_price_num,graduated`;
+  const res = await fetch(url, {
+    headers: {
+      apikey: ANI_ANON_KEY,
+      Authorization: `Bearer ${ANI_ANON_KEY}`,
+      Accept: "application/json",
+    },
+  });
+  if (!res.ok) throw new Error("ani launchpad failed");
+  const rows = (await res.json()) as AniLaunchpadRow[];
+  return rows[0] ?? null;
 }
 
 export function useOnChainInfo(): OnChainInfo {
@@ -160,23 +177,33 @@ export function useOnChainInfo(): OnChainInfo {
 
     (async () => {
       try {
-        const [supplyHex, decimalsHex, holders, prices] = await Promise.all([
+        const [supplyHex, decimalsHex, holders, ani, wldUsd] = await Promise.all([
           ethCall(LINKS.contract, TOTAL_SUPPLY_SIG),
           ethCall(LINKS.contract, DECIMALS_SIG),
           fetchHolders().catch(() => null),
-          fetchWhoamiPrices().catch(() => null),
+          fetchAniLaunchpad().catch(() => null),
+          fetchWldUsd().catch(() => null),
         ]);
         const decimals = Number.parseInt(decimalsHex, 16);
         const supply = BigInt(supplyHex);
         const formatted = formatSupply(supply, decimals);
         const supplyHuman = Number(supply) / 10 ** decimals;
-        const priceUsd = prices?.priceUsd ?? null;
-        const priceWld = prices?.priceWld ?? null;
-        // Market cap in WLD = (WLD per WHOAMI) × total supply
-        const marketCapWld =
-          priceWld !== null && Number.isFinite(supplyHuman)
-            ? priceWld * supplyHuman
-            : null;
+
+        let priceWld: number | null = ani?.current_price_num ?? null;
+        let marketCapWld: number | null = ani?.market_cap_wld ?? null;
+
+        // After graduation Ani uses pool price × total supply (same as wallet UI)
+        if (ani?.graduated) {
+          const poolPrice = await fetchPoolPriceWld().catch(() => null);
+          if (poolPrice !== null && poolPrice > 0 && Number.isFinite(supplyHuman)) {
+            priceWld = poolPrice;
+            marketCapWld = poolPrice * supplyHuman;
+          }
+        }
+
+        const priceUsd =
+          priceWld !== null && wldUsd !== null ? priceWld * wldUsd : null;
+
         if (!cancelled) {
           setInfo({
             chainId: 480,
