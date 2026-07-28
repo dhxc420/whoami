@@ -186,6 +186,71 @@
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
 }
 
+.onchain {
+  margin-bottom: 1rem;
+  padding-bottom: 0.95rem;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+}
+
+.onchainLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--green);
+  margin-bottom: 0.75rem;
+}
+
+.onchainGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.onchainGrid div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.onchainGrid span {
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  color: var(--dim);
+}
+
+.onchainGrid strong {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.onchainGrid em {
+  font-style: normal;
+  color: var(--cyan);
+  font-size: 0.68rem;
+  margin-left: 0.15rem;
+}
+
+.explorer {
+  display: inline-block;
+  margin-top: 0.7rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: var(--cyan);
+  text-transform: uppercase;
+}
+
+.explorer:hover {
+  color: var(--red);
+}
+
 .actions {
   margin-top: 0;
 }
@@ -317,6 +382,10 @@
     color: rgba(225, 6, 0, 0.18);
     opacity: 0.45;
     animation: rain 18s linear infinite alternate;
+  }
+
+  .onchainGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .title {

@@ -12,9 +12,9 @@ export default function Specs() {
   const specs = [
     { label: t("specs.symbol"), value: TICKER_SYMBOL, hint: "ticker" },
     { label: t("specs.name"), value: "fr13nds", hint: "project", brand: true },
-    { label: t("specs.chain"), value: "WORLD CHAIN", hint: "network" },
-    { label: t("specs.std"), value: "ERC-20", hint: "token" },
-    { label: t("specs.launch"), value: "JUL 2026", hint: "ani launchpad" },
+    { label: t("specs.chain"), value: "WORLD CHAIN", hint: "480" },
+    { label: t("specs.std"), value: "ERC-20", hint: "18 decimals" },
+    { label: t("hero.supply"), value: "300M", hint: "total supply" },
     { label: t("specs.status"), value: "LIVE", hint: "mainnet" },
   ];
 

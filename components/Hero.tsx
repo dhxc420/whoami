@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { BrandName, LINKS, TICKER_SYMBOL } from "@/lib/brand";
 import { useLang } from "@/lib/i18n";
+import { useOnChainInfo } from "@/lib/onchain";
 import LangToggle from "@/components/LangToggle";
 import ThemeToggle from "@/components/ThemeToggle";
 import styles from "./Hero.module.css";
@@ -14,6 +15,7 @@ function shortAddress(addr: string) {
 
 export default function Hero() {
   const { t } = useLang();
+  const onchain = useOnChainInfo();
   const heroRef = useRef<HTMLElement>(null);
   const mediaRef = useRef<HTMLDivElement>(null);
   const layerRef = useRef<HTMLDivElement>(null);
@@ -207,6 +209,43 @@ export default function Hero() {
         </div>
 
         <div className={`${styles.ctaPanel} reveal reveal-delay-4`}>
+          <div className={styles.onchain}>
+            <p className={styles.onchainLabel}>
+              <span className={styles.dot} aria-hidden />
+              {t("hero.onchain")}
+              {onchain.loading ? " …" : null}
+            </p>
+            <div className={styles.onchainGrid}>
+              <div>
+                <span>{t("hero.chain")}</span>
+                <strong>
+                  {onchain.chain}
+                  <em>/{onchain.chainId}</em>
+                </strong>
+              </div>
+              <div>
+                <span>{t("hero.supply")}</span>
+                <strong title={onchain.supplyRaw}>{onchain.supply}</strong>
+              </div>
+              <div>
+                <span>{t("hero.decimals")}</span>
+                <strong>{onchain.decimals}</strong>
+              </div>
+              <div>
+                <span>TICKER</span>
+                <strong>${onchain.symbol}</strong>
+              </div>
+            </div>
+            <a
+              className={styles.explorer}
+              href={LINKS.worldscan}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Worldscan {t("hero.explorer")} ↗
+            </a>
+          </div>
+
           <div className={`${styles.actions} btn-row`}>
             <a
               className="btn btn-primary"

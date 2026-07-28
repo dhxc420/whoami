@@ -31,6 +31,11 @@ const dict = {
     "hero.copied": "COPIADO ✓",
     "hero.contract": "CONTRATO",
     "hero.copyTitle": "Copiar contrato",
+    "hero.onchain": "ON-CHAIN",
+    "hero.chain": "RED",
+    "hero.supply": "SUPPLY",
+    "hero.decimals": "DECIMALS",
+    "hero.explorer": "explorer",
 
     "story.label": "origen",
     "story.title": "De la red, con identidad",
@@ -143,6 +148,11 @@ const dict = {
     "hero.copied": "COPIED ✓",
     "hero.contract": "CONTRACT",
     "hero.copyTitle": "Copy contract",
+    "hero.onchain": "ON-CHAIN",
+    "hero.chain": "CHAIN",
+    "hero.supply": "SUPPLY",
+    "hero.decimals": "DECIMALS",
+    "hero.explorer": "explorer",
 
     "story.label": "origin",
     "story.title": "From the net, with identity",
