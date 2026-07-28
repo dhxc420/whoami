@@ -43,8 +43,10 @@ export default function Community() {
         </div>
 
         <p className={styles.slogan}>
-          {t("community.slogan")}
-          <span>{t("community.sloganSub")}</span>
+          <span className={styles.sloganMain} data-text={t("community.slogan")}>
+            {t("community.slogan")}
+          </span>
+          <span className={styles.sloganSub}>{t("community.sloganSub")}</span>
         </p>
       </div>
     </section>

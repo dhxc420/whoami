@@ -151,9 +151,14 @@
   font-size: clamp(2.8rem, 11vw, 5.5rem);
   letter-spacing: 0.02em;
   line-height: 0.92;
-  color: #fff;
+  /* Always light on dark hero art — ignore theme --white */
+  color: #f4f7f8;
   text-transform: uppercase;
   text-shadow: 0 2px 28px rgba(0, 0, 0, 0.85);
+}
+
+.title :global(.brand-mark) {
+  color: #f4f7f8;
 }
 
 .glitch {
@@ -369,8 +374,8 @@
   padding: 1.1rem 1.15rem;
   background: var(--cta-panel);
   border: 1px solid rgba(255, 30, 30, 0.25);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
 }
 
 .onchain {
@@ -582,8 +587,14 @@
 
   .title {
     font-size: clamp(2.35rem, 12vw, 3.4rem);
-    color: var(--white);
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
+    color: #f4f7f8;
+    text-shadow:
+      0 2px 20px rgba(0, 0, 0, 0.9),
+      0 0 1px rgba(255, 255, 255, 0.35);
+  }
+
+  .title :global(.brand-mark) {
+    color: #f4f7f8;
   }
 
   .lead {
@@ -593,22 +604,27 @@
   .tagline {
     margin-top: 0.55rem;
     font-size: 0.7rem;
-    color: var(--muted);
-    text-shadow: none;
+    color: rgba(255, 255, 255, 0.78);
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.75);
+  }
+
+  .eyebrow {
+    color: #39ff8a;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.65);
   }
 
   /* Dock ON-CHAIN panel toward bottom — face stays visible */
   .ctaPanel {
     margin-top: auto;
     padding: 0.85rem 0.9rem;
-    background: rgba(2, 3, 4, 0.42);
-    border-color: rgba(255, 30, 30, 0.35);
-    backdrop-filter: blur(8px) saturate(1.1);
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
+    background: rgba(2, 3, 4, 0.28);
+    border-color: rgba(255, 30, 30, 0.4);
+    backdrop-filter: blur(6px) saturate(1.05);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   }
 
   :global([data-theme="light"]) .ctaPanel {
-    background: rgba(244, 242, 237, 0.55);
+    background: rgba(244, 242, 237, 0.38);
   }
 
   .onchain {
@@ -703,8 +719,12 @@
   }
 
   .title {
-    color: #fff;
+    color: #f4f7f8;
     text-shadow: 0 4px 28px rgba(0, 0, 0, 0.9);
+  }
+
+  .title :global(.brand-mark) {
+    color: #f4f7f8;
   }
 
   .tagline,
