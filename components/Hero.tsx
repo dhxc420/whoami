@@ -211,7 +211,7 @@ export default function Hero() {
         <div className={`${styles.ctaPanel} reveal reveal-delay-4`}>
           <div className={styles.onchain}>
             <p className={styles.onchainLabel}>
-              <span className={styles.dot} aria-hidden />
+              <span className={styles.liveDot} aria-hidden />
               {t("hero.onchain")}
               {onchain.loading ? " …" : null}
             </p>
