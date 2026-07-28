@@ -228,8 +228,8 @@ export default function Hero() {
                 <strong title={onchain.supplyRaw}>{onchain.supply}</strong>
               </div>
               <div>
-                <span>{t("hero.decimals")}</span>
-                <strong>{onchain.decimals}</strong>
+                <span>{t("hero.holders")}</span>
+                <strong>{onchain.holders}</strong>
               </div>
               <div>
                 <span>TICKER</span>

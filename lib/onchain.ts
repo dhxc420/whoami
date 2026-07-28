@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { LINKS } from "@/lib/brand";
 
 const RPC = "https://worldchain.drpc.org";
+const TOKEN_API = `https://worldchain-mainnet.explorer.alchemy.com/api/v2/tokens/${LINKS.contract}`;
 const TOTAL_SUPPLY_SIG = "0x18160ddd";
 const DECIMALS_SIG = "0x313ce567";
 
@@ -14,6 +15,8 @@ export type OnChainInfo = {
   decimals: number;
   supply: string;
   supplyRaw: string;
+  holders: string;
+  holdersRaw: number;
   loading: boolean;
   error: boolean;
 };
@@ -25,6 +28,8 @@ const FALLBACK: OnChainInfo = {
   decimals: 18,
   supply: "300M",
   supplyRaw: "300,000,000",
+  holders: "—",
+  holdersRaw: 0,
   loading: false,
   error: false,
 };
@@ -34,10 +39,16 @@ function formatSupply(raw: bigint, decimals: number): { short: string; full: str
   const whole = raw / base;
   const full = whole.toLocaleString("en-US");
   if (whole >= 1_000_000_000n) {
-    return { short: `${(Number(whole) / 1e9).toFixed(whole % 1_000_000_000n === 0n ? 0 : 1)}B`, full };
+    return {
+      short: `${(Number(whole) / 1e9).toFixed(whole % 1_000_000_000n === 0n ? 0 : 1)}B`,
+      full,
+    };
   }
   if (whole >= 1_000_000n) {
-    return { short: `${(Number(whole) / 1e6).toFixed(whole % 1_000_000n === 0n ? 0 : 1)}M`, full };
+    return {
+      short: `${(Number(whole) / 1e6).toFixed(whole % 1_000_000n === 0n ? 0 : 1)}M`,
+      full,
+    };
   }
   return { short: full, full };
 }
@@ -58,6 +69,15 @@ async function ethCall(data: string): Promise<string> {
   return json.result;
 }
 
+async function fetchHolders(): Promise<number> {
+  const res = await fetch(TOKEN_API);
+  if (!res.ok) throw new Error("holders api failed");
+  const json = (await res.json()) as { holders_count?: string | number };
+  const n = Number(json.holders_count);
+  if (!Number.isFinite(n)) throw new Error("invalid holders");
+  return n;
+}
+
 export function useOnChainInfo(): OnChainInfo {
   const [info, setInfo] = useState<OnChainInfo>({
     ...FALLBACK,
@@ -69,9 +89,10 @@ export function useOnChainInfo(): OnChainInfo {
 
     (async () => {
       try {
-        const [supplyHex, decimalsHex] = await Promise.all([
+        const [supplyHex, decimalsHex, holders] = await Promise.all([
           ethCall(TOTAL_SUPPLY_SIG),
           ethCall(DECIMALS_SIG),
+          fetchHolders().catch(() => null),
         ]);
         const decimals = Number.parseInt(decimalsHex, 16);
         const supply = BigInt(supplyHex);
@@ -84,6 +105,9 @@ export function useOnChainInfo(): OnChainInfo {
             decimals,
             supply: formatted.short,
             supplyRaw: formatted.full,
+            holders:
+              holders === null ? FALLBACK.holders : holders.toLocaleString("en-US"),
+            holdersRaw: holders ?? 0,
             loading: false,
             error: false,
           });
