@@ -1,6 +1,7 @@
 import Community from "@/components/Community";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
+import Media from "@/components/Media";
 import MobileCta from "@/components/MobileCta";
 import Protocol from "@/components/Protocol";
 import ScrollJump from "@/components/ScrollJump";
@@ -17,6 +18,7 @@ export default function Home() {
       <Protocol />
       <WorldChain />
       <Community />
+      <Media />
       <Footer />
       <MobileCta />
       <ScrollJump />

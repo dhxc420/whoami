@@ -19,6 +19,7 @@ const dict = {
     "nav.protocol": "protocol",
     "nav.world": "world",
     "nav.community": "comunidad",
+    "nav.media": "media",
     "nav.menu": "menu",
     "nav.close": "cerrar",
     "nav.aria": "Principal",
@@ -127,6 +128,17 @@ const dict = {
     "community.slogan": "WE DON'T FOLLOW. WE VERIFY.",
     "community.sloganSub": "EL FUTURO ES DE LOS AMIGOS",
 
+    "media.label": "media",
+    "media.title": "Wallpapers oficiales",
+    "media.hint": "assets · mobile · download",
+    "media.lead":
+      "Arte de marca para tu pantalla. Descarga y úsalo libremente en la comunidad.",
+    "media.download": "Descargar",
+    "media.w1.title": "WE VERIFY",
+    "media.w1.meta": "1080×1920 · PNG · mobile",
+    "media.w2.title": "AUDIT MODE",
+    "media.w2.meta": "1080×1920 · PNG · mobile",
+
     "footer.copy": "EOF · © 2026 fr13nds · $WHOAMI · community fan page",
     "mobile.buy": "Compra",
     "mobile.aria": "Compra rápida",
@@ -139,6 +151,7 @@ const dict = {
     "nav.protocol": "protocol",
     "nav.world": "world",
     "nav.community": "community",
+    "nav.media": "media",
     "nav.menu": "menu",
     "nav.close": "close",
     "nav.aria": "Main",
@@ -246,6 +259,17 @@ const dict = {
     "community.buy": "Buy",
     "community.slogan": "WE DON'T FOLLOW. WE VERIFY.",
     "community.sloganSub": "THE FUTURE BELONGS TO FRIENDS",
+
+    "media.label": "media",
+    "media.title": "Official wallpapers",
+    "media.hint": "assets · mobile · download",
+    "media.lead":
+      "Brand art for your lock screen. Download freely for the community.",
+    "media.download": "Download",
+    "media.w1.title": "WE VERIFY",
+    "media.w1.meta": "1080×1920 · PNG · mobile",
+    "media.w2.title": "AUDIT MODE",
+    "media.w2.meta": "1080×1920 · PNG · mobile",
 
     "footer.copy": "EOF · © 2026 fr13nds · $WHOAMI · community fan page",
     "mobile.buy": "Buy",

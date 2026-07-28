@@ -29,6 +29,7 @@ export default function Hero() {
       { href: "#protocol", label: t("nav.protocol") },
       { href: "#world", label: t("nav.world") },
       { href: "#community", label: t("nav.community") },
+      { href: "#media", label: t("nav.media") },
     ],
     [t],
   );
