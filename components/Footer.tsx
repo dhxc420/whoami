@@ -1,7 +1,12 @@
+"use client";
+
 import { BrandName, LINKS } from "@/lib/brand";
+import { useLang } from "@/lib/i18n";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
+  const { t } = useLang();
+
   return (
     <footer className={styles.footer}>
       <div className={`container ${styles.inner}`}>
@@ -24,7 +29,7 @@ export default function Footer() {
         </div>
       </div>
       <div className={`container ${styles.copy}`}>
-        <span>EOF · © 2026 fr13nds · $WHOAMI · community fan page</span>
+        <span>{t("footer.copy")}</span>
       </div>
     </footer>
   );

@@ -1,21 +1,25 @@
+"use client";
+
 import { BrandName, LINKS, TICKER_SYMBOL } from "@/lib/brand";
+import { useLang } from "@/lib/i18n";
 import styles from "./Community.module.css";
 
 export default function Community() {
+  const { t } = useLang();
+
   return (
     <section id="community" className="section">
       <div className="container">
         <div className="section-label">
           <span className="num">05</span>
-          <span>comunidad</span>
+          <span>{t("community.label")}</span>
         </div>
 
-        <h2 className="section-title">La comunidad es el protocolo</h2>
-        <p className="section-kana">compra · telegram · verifica</p>
+        <h2 className="section-title">{t("community.title")}</h2>
+        <p className="section-kana">{t("community.hint")}</p>
 
         <p className="section-lead">
-          Únete a la red. Compra {TICKER_SYMBOL} en Ani Launchpad. Habla con
-          los <BrandName /> en Telegram.
+          {t("community.lead")} <BrandName /> {t("community.leadAfter")}
         </p>
 
         <div className={`${styles.actions} btn-row`}>
@@ -25,7 +29,8 @@ export default function Community() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Compra {TICKER_SYMBOL} <span className="arrow">↗</span>
+            {t("community.buy")} {TICKER_SYMBOL}{" "}
+            <span className="arrow">↗</span>
           </a>
           <a
             className="btn"
@@ -38,8 +43,8 @@ export default function Community() {
         </div>
 
         <p className={styles.slogan}>
-          WE DON&apos;T FOLLOW. WE VERIFY.
-          <span>EL FUTURO ES DE LOS AMIGOS</span>
+          {t("community.slogan")}
+          <span>{t("community.sloganSub")}</span>
         </p>
       </div>
     </section>

@@ -1,56 +1,31 @@
+"use client";
+
 import { BrandName } from "@/lib/brand";
+import { useLang } from "@/lib/i18n";
 import styles from "./Protocol.module.css";
 
-const LAYERS = [
-  {
-    id: "01",
-    tag: "sec",
-    title: "Security ring",
-    body: "Capa de protección del protocolo y la comunidad.",
-  },
-  {
-    id: "02",
-    tag: "gov",
-    title: "Gobernanza",
-    body: "Decisiones impulsadas por amigos, transparentes y on-chain.",
-  },
-  {
-    id: "03",
-    tag: "core",
-    title: "Friends core",
-    body: "El corazón de fr13nds. Impulsado por personas reales.",
-  },
-  {
-    id: "04",
-    tag: "ifc",
-    title: "World interface",
-    body: "Integración nativa con World Chain y humanos verificados.",
-  },
-  {
-    id: "05",
-    tag: "vault",
-    title: "Treasury",
-    body: "Gestión transparente de fondos para crecer el ecosistema.",
-  },
-  {
-    id: "06",
-    tag: "id",
-    title: "Human verify",
-    body: "Construido sobre World ID. Humanos reales. Cero bots.",
-  },
-];
-
 export default function Protocol() {
+  const { t } = useLang();
+
+  const layers = [
+    { id: "01", tag: "sec", title: t("protocol.l1.title"), body: t("protocol.l1.body") },
+    { id: "02", tag: "gov", title: t("protocol.l2.title"), body: t("protocol.l2.body") },
+    { id: "03", tag: "core", title: t("protocol.l3.title"), body: t("protocol.l3.body") },
+    { id: "04", tag: "ifc", title: t("protocol.l4.title"), body: t("protocol.l4.body") },
+    { id: "05", tag: "vault", title: t("protocol.l5.title"), body: t("protocol.l5.body") },
+    { id: "06", tag: "id", title: t("protocol.l6.title"), body: t("protocol.l6.body") },
+  ];
+
   return (
     <section id="protocol" className="section">
       <div className="container">
         <div className="section-label">
           <span className="num">03</span>
-          <span>protocol</span>
+          <span>{t("protocol.label")}</span>
         </div>
 
-        <h2 className="section-title">Genesis protocol</h2>
-        <p className="section-kana">6 capas · world chain build</p>
+        <h2 className="section-title">{t("protocol.title")}</h2>
+        <p className="section-kana">{t("protocol.hint")}</p>
 
         <div className={styles.panel}>
           <div className={styles.panelHead}>
@@ -64,12 +39,10 @@ export default function Protocol() {
             </div>
           </div>
 
-          <p className={styles.tag}>
-            &gt; red de amigos · asset descentralizado · cadena global
-          </p>
+          <p className={styles.tag}>{t("protocol.tag")}</p>
 
           <div className={styles.layers}>
-            {LAYERS.map((layer) => (
+            {layers.map((layer) => (
               <article key={layer.id} className={styles.layer}>
                 <span className={styles.layerId}>{layer.id}</span>
                 <div>
@@ -89,8 +62,7 @@ export default function Protocol() {
               <p className={styles.spaced}>friends_protocol</p>
             </div>
             <p className={styles.manifesto}>
-              <BrandName /> es el nombre. $WHOAMI es el token. Una red de
-              amigos.
+              <BrandName /> {t("protocol.manifesto")}
             </p>
           </div>
         </div>

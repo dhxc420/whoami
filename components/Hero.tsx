@@ -1,29 +1,35 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { BrandName, LINKS, TICKER_SYMBOL } from "@/lib/brand";
+import { useLang } from "@/lib/i18n";
+import LangToggle from "@/components/LangToggle";
 import ThemeToggle from "@/components/ThemeToggle";
 import styles from "./Hero.module.css";
-
-const NAV = [
-  { href: "#story", label: "origen" },
-  { href: "#specs", label: "token" },
-  { href: "#protocol", label: "protocol" },
-  { href: "#world", label: "world" },
-  { href: "#community", label: "comunidad" },
-];
 
 function shortAddress(addr: string) {
   return `${addr.slice(0, 6)}…${addr.slice(-4)}`;
 }
 
 export default function Hero() {
+  const { t } = useLang();
   const heroRef = useRef<HTMLElement>(null);
   const mediaRef = useRef<HTMLDivElement>(null);
   const layerRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  const nav = useMemo(
+    () => [
+      { href: "#story", label: t("nav.story") },
+      { href: "#specs", label: t("nav.specs") },
+      { href: "#protocol", label: t("nav.protocol") },
+      { href: "#world", label: t("nav.world") },
+      { href: "#community", label: t("nav.community") },
+    ],
+    [t],
+  );
 
   useEffect(() => {
     const media = mediaRef.current;
@@ -131,35 +137,36 @@ export default function Hero() {
         </div>
       </div>
 
-      <nav className={styles.nav} aria-label="Principal">
+      <nav className={styles.nav} aria-label={t("nav.aria")}>
         <a href="#top" className={styles.logo}>
           <BrandName />
         </a>
         <div className={styles.navRight}>
           <div className={styles.navLinks}>
-            {NAV.map((item) => (
+            {nav.map((item) => (
               <a key={item.href} href={item.href}>
                 {item.label}
               </a>
             ))}
           </div>
+          <LangToggle />
           <ThemeToggle />
           <button
             type="button"
             className={styles.menuBtn}
             aria-expanded={menuOpen}
             aria-controls="mobile-nav"
-            aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
+            aria-label={menuOpen ? t("nav.close") : t("nav.menu")}
             onClick={() => setMenuOpen((v) => !v)}
           >
-            {menuOpen ? "close" : "menu"}
+            {menuOpen ? t("nav.close") : t("nav.menu")}
           </button>
         </div>
       </nav>
 
       {menuOpen ? (
         <div id="mobile-nav" className={styles.mobileNav}>
-          {NAV.map((item) => (
+          {nav.map((item) => (
             <a
               key={item.href}
               href={item.href}
@@ -175,16 +182,14 @@ export default function Hero() {
             className="btn btn-primary"
             onClick={() => setMenuOpen(false)}
           >
-            Compra {TICKER_SYMBOL}
+            {t("hero.buy")} {TICKER_SYMBOL}
           </a>
         </div>
       ) : null}
 
       <div className={`container ${styles.content}`}>
         <div className={styles.copyBlock}>
-          <p className={`${styles.eyebrow} reveal`}>
-            WORLD CHAIN · HUMANOS VERIFICADOS
-          </p>
+          <p className={`${styles.eyebrow} reveal`}>{t("hero.eyebrow")}</p>
 
           <h1 className={`${styles.title} reveal reveal-delay-1`}>
             <BrandName />
@@ -197,8 +202,7 @@ export default function Hero() {
           </p>
 
           <p className={`${styles.lead} reveal reveal-delay-3`}>
-            No es solo un token. Es una red de amigos reales — humanos
-            verificados, cero bots.
+            {t("hero.lead")}
           </p>
         </div>
 
@@ -210,7 +214,8 @@ export default function Hero() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Compra {TICKER_SYMBOL} <span className="arrow">↗</span>
+              {t("hero.buy")} {TICKER_SYMBOL}{" "}
+              <span className="arrow">↗</span>
             </a>
             <a
               className="btn"
@@ -218,14 +223,14 @@ export default function Hero() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Telegram <span className="arrow">↗</span>
+              {t("hero.telegram")} <span className="arrow">↗</span>
             </a>
           </div>
 
           <div className={styles.meta}>
             <div className={styles.status}>
               <span className={styles.dot} aria-hidden />
-              LIVE ON WORLD CHAIN
+              {t("hero.live")}
               <span className={styles.cursor} aria-hidden>
                 _
               </span>
@@ -236,11 +241,11 @@ export default function Hero() {
                 type="button"
                 className={styles.contract}
                 onClick={copyContract}
-                title="Copiar contrato"
+                title={t("hero.copyTitle")}
               >
                 {copied
-                  ? "COPIADO ✓"
-                  : `CONTRATO ${shortAddress(LINKS.contract)} ⧉`}
+                  ? t("hero.copied")
+                  : `${t("hero.contract")} ${shortAddress(LINKS.contract)} ⧉`}
               </button>
             </div>
           </div>
