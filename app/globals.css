@@ -13,8 +13,8 @@
   --cyan: #4dffd0;
   --green: #39ff8a;
   --white: #eef2f4;
-  --font: var(--font-mono), "Courier New", monospace;
-  --font-display: var(--font-mono), "Courier New", monospace;
+  --font: "JetBrains Mono", "Courier New", monospace;
+  --font-display: "JetBrains Mono", "Courier New", monospace;
   --max: 1080px;
   --gutter: clamp(1rem, 4vw, 2rem);
   --scan: rgba(255, 30, 30, 0.035);

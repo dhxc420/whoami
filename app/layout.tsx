@@ -1,12 +1,5 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-
-const mono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-mono",
-});
 
 export const metadata: Metadata = {
   title: "fr13nds · $WHOAMI — Community Token on World Chain",
@@ -27,8 +20,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={mono.variable} suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
       </head>
       <body>{children}</body>
