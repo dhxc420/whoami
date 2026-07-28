@@ -430,24 +430,39 @@
   }
 }
 
-/* Desktop: art brands — keep short lead optional hidden, strengthen CTA panel */
+/* Desktop: show brand copy above CTA panel */
 @media (min-width: 769px) {
-  .eyebrow,
-  .title,
-  .tagline,
-  .lead {
-    /* Keep brand in art; show only a short accessible title for SR */
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 1.25rem;
+    padding-top: 6rem;
+  }
+
+  .copyBlock {
+    max-width: 38rem;
   }
 
   .copyBlock .eyebrow,
   .copyBlock .title,
   .copyBlock .tagline,
   .copyBlock .lead {
-    display: none;
+    display: block;
   }
 
-  .content {
-    padding-top: 0;
+  .title {
+    color: #fff;
+    text-shadow:
+      2px 0 0 rgba(255, 30, 30, 0.4),
+      -2px 0 0 rgba(0, 255, 200, 0.25),
+      0 4px 28px rgba(0, 0, 0, 0.9);
+  }
+
+  .tagline,
+  .lead {
+    color: rgba(255, 255, 255, 0.82);
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.85);
   }
 
   .ctaPanel {
