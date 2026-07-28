@@ -2,11 +2,11 @@
 [data-theme="dark"] {
   --bg: #020304;
   --bg-elevated: #070a0c;
-  --fg: #c8d0d4;
-  --muted: #6b787f;
-  --dim: #3a454b;
+  --fg: #d5dce0;
+  --muted: #8b969c;
+  --dim: #5a656c;
   --line: #142028;
-  --line-strong: #1e2e38;
+  --line-strong: #2a3a44;
   --red: #ff1e1e;
   --red-dim: #a01010;
   --red-soft: rgba(255, 30, 30, 0.12);
@@ -17,36 +17,44 @@
   --font-display: "JetBrains Mono", "Courier New", monospace;
   --max: 1080px;
   --gutter: clamp(1rem, 4vw, 2rem);
-  --scan: rgba(255, 30, 30, 0.035);
-  --grid-line: rgba(255, 30, 30, 0.03);
-  --grid-glow: rgba(255, 30, 30, 0.12);
-  --vignette: rgba(0, 0, 0, 0.55);
+  --scan: rgba(255, 30, 30, 0.028);
+  --scan-opacity: 0.28;
+  --grid-line: rgba(255, 30, 30, 0.025);
+  --grid-glow: rgba(255, 30, 30, 0.1);
+  --vignette: rgba(0, 0, 0, 0.4);
   --hero-fade: #020304;
   --panel-bg: #040607;
   --terminal-bg: rgba(0, 8, 6, 0.65);
+  --btn-bg: rgba(0, 0, 0, 0.55);
+  --nav-bg: rgba(0, 0, 0, 0.72);
+  --cta-panel: rgba(2, 3, 4, 0.78);
 }
 
 [data-theme="light"] {
-  --bg: #f2f0eb;
+  --bg: #f4f2ed;
   --bg-elevated: #ffffff;
   --fg: #1a2228;
-  --muted: #5a656c;
-  --dim: #8a949a;
-  --line: #d8d4cc;
+  --muted: #4a555c;
+  --dim: #7a858c;
+  --line: #ddd8ce;
   --line-strong: #b8b2a8;
-  --red: #d40f0f;
-  --red-dim: #a01010;
-  --red-soft: rgba(212, 15, 15, 0.1);
-  --cyan: #0a7a68;
-  --green: #1a7a45;
+  --red: #c40e0e;
+  --red-dim: #8a0c0c;
+  --red-soft: rgba(196, 14, 14, 0.08);
+  --cyan: #0a6b5c;
+  --green: #167a3f;
   --white: #0c1014;
-  --scan: rgba(212, 15, 15, 0.025);
-  --grid-line: rgba(212, 15, 15, 0.06);
-  --grid-glow: rgba(212, 15, 15, 0.08);
-  --vignette: rgba(242, 240, 235, 0.2);
-  --hero-fade: #f2f0eb;
-  --panel-bg: #ebe8e1;
-  --terminal-bg: rgba(255, 255, 255, 0.75);
+  --scan: transparent;
+  --scan-opacity: 0;
+  --grid-line: rgba(196, 14, 14, 0.04);
+  --grid-glow: rgba(196, 14, 14, 0.05);
+  --vignette: transparent;
+  --hero-fade: #f4f2ed;
+  --panel-bg: #efece5;
+  --terminal-bg: rgba(255, 255, 255, 0.88);
+  --btn-bg: rgba(255, 255, 255, 0.85);
+  --nav-bg: rgba(244, 242, 237, 0.92);
+  --cta-panel: rgba(244, 242, 237, 0.92);
 }
 
 *,
@@ -86,11 +94,11 @@ body::before {
   background: repeating-linear-gradient(
     0deg,
     transparent,
-    transparent 2px,
-    var(--scan) 2px,
+    transparent 3px,
+    var(--scan) 3px,
     var(--scan) 4px
   );
-  opacity: 0.55;
+  opacity: var(--scan-opacity);
 }
 
 body::after {
@@ -99,7 +107,7 @@ body::after {
   inset: 0;
   pointer-events: none;
   z-index: 9998;
-  background: radial-gradient(ellipse at center, transparent 55%, var(--vignette) 100%);
+  background: radial-gradient(ellipse at center, transparent 60%, var(--vignette) 100%);
 }
 
 a {
@@ -120,9 +128,14 @@ button {
   color: inherit;
 }
 
+:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
 ::selection {
   background: var(--red);
-  color: #000;
+  color: #fff;
 }
 
 .container {
@@ -131,7 +144,7 @@ button {
 }
 
 .section {
-  padding: clamp(3.5rem, 10vw, 6rem) 0;
+  padding: clamp(3.25rem, 9vw, 5.5rem) 0;
   border-top: 1px dashed var(--line-strong);
   position: relative;
 }
@@ -140,7 +153,7 @@ button {
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
   font-size: 0.72rem;
   letter-spacing: 0.04em;
   color: var(--green);
@@ -158,13 +171,12 @@ button {
 .section-title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1.55rem, 4.2vw, 2.4rem);
+  font-size: clamp(1.45rem, 4vw, 2.15rem);
   letter-spacing: 0.02em;
-  line-height: 1.15;
-  margin-bottom: 0.35rem;
-  text-transform: uppercase;
+  line-height: 1.2;
+  margin-bottom: 0.4rem;
+  text-transform: none;
   color: var(--white);
-  text-shadow: 0 0 18px rgba(255, 30, 30, 0.25);
 }
 
 .section-title::before {
@@ -175,7 +187,7 @@ button {
 .section-kana {
   font-size: 0.72rem;
   color: var(--dim);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   margin-bottom: 1.5rem;
   font-family: var(--font);
 }
@@ -188,12 +200,12 @@ button {
 .section-lead {
   max-width: 40rem;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.92rem;
 }
 
 .brand-mark .thirteen {
   color: var(--red);
-  text-shadow: 0 0 12px rgba(255, 30, 30, 0.55);
+  text-shadow: 0 0 12px rgba(255, 30, 30, 0.45);
 }
 
 .btn-row {
@@ -205,13 +217,15 @@ button {
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.45rem;
-  padding: 0.75rem 1rem;
+  min-height: 2.75rem;
+  padding: 0.75rem 1.1rem;
   font-size: 0.72rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   border: 1px solid var(--line-strong);
-  background: rgba(0, 0, 0, 0.55);
+  background: var(--btn-bg);
   clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
   transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease,
     box-shadow 0.15s ease;
@@ -220,8 +234,7 @@ button {
 .btn:hover {
   border-color: var(--red);
   color: var(--white);
-  box-shadow: 0 0 0 1px rgba(255, 30, 30, 0.35), 0 0 24px rgba(255, 30, 30, 0.2);
-  animation: glitch-skew 0.35s steps(2) 1;
+  box-shadow: 0 0 0 1px rgba(255, 30, 30, 0.35), 0 0 24px rgba(255, 30, 30, 0.15);
 }
 
 .btn-primary {
@@ -235,7 +248,7 @@ button {
   background: #ff4444;
   border-color: #ff4444;
   color: #fff;
-  box-shadow: 0 0 28px rgba(255, 30, 30, 0.45);
+  box-shadow: 0 0 28px rgba(255, 30, 30, 0.4);
 }
 
 .btn .arrow {
@@ -316,24 +329,6 @@ button {
   }
 }
 
-@keyframes glitch-skew {
-  0% {
-    transform: none;
-  }
-  20% {
-    transform: translate(-2px, 1px) skewX(-2deg);
-  }
-  40% {
-    transform: translate(2px, -1px);
-  }
-  60% {
-    transform: translate(-1px, 0);
-  }
-  100% {
-    transform: none;
-  }
-}
-
 @keyframes blink {
   0%,
   49% {
@@ -350,7 +345,7 @@ button {
     scroll-behavior: auto;
   }
   body::before {
-    opacity: 0.2;
+    opacity: 0;
   }
   .reveal,
   .reveal-delay-1,
@@ -360,8 +355,5 @@ button {
     animation: none;
     opacity: 1;
     transform: none;
-  }
-  .btn:hover {
-    animation: none;
   }
 }

@@ -4,18 +4,18 @@ import styles from "./Story.module.css";
 const TIMELINE = [
   {
     year: "2025",
-    title: "boot_sequence",
-    body: "Nace la idea de fr13nds: una red de amigos reales en un internet lleno de bots.",
+    title: "El origen",
+    body: "Nace fr13nds: una red de amigos reales en un internet lleno de bots.",
   },
   {
     year: "2026",
-    title: "protocol_draft",
+    title: "La visión",
     body: "Se define el protocolo: token comunitario sobre World Chain, verificado por humanos.",
   },
   {
     year: "JUL 2026",
-    title: "mainnet_live",
-    body: "$WHOAMI vive en World Chain, lanzado en Ani Launchpad dentro de World App. STATUS: LIVE",
+    title: "El lanzamiento",
+    body: "$WHOAMI vive en World Chain, lanzado en Ani Launchpad. Humanos reales. Cero bots.",
     live: true,
   },
 ];
@@ -26,10 +26,10 @@ export default function Story() {
       <div className="container">
         <div className="section-label">
           <span className="num">01</span>
-          <span>cat ./logs/origin.log</span>
+          <span>origen</span>
         </div>
 
-        <h2 className="section-title">identity_from_the_net</h2>
+        <h2 className="section-title">De la red, con identidad</h2>
         <p className="section-kana">whoami --friends</p>
 
         <div className={styles.grid}>
@@ -40,9 +40,9 @@ export default function Story() {
               apuesta por humanos verificados y comunidad on-chain.
             </p>
             <p className={styles.quote}>
-              <span className={styles.prompt}>root@fr13nds:~$</span> echo
-              &quot;fr13nds es el nombre. $WHOAMI es el token. Red de confianza.
-              Amigos, no bots.&quot;
+              <span className={styles.prompt}>root@fr13nds:~$</span>{" "}
+              fr13nds es el nombre. $WHOAMI es el token. Red de confianza —
+              amigos, no bots.
             </p>
           </div>
 

@@ -1,10 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BrandName, LINKS, TICKER_SYMBOL } from "@/lib/brand";
 import ThemeToggle from "@/components/ThemeToggle";
 import styles from "./Hero.module.css";
+
+const NAV = [
+  { href: "#story", label: "origen" },
+  { href: "#specs", label: "token" },
+  { href: "#protocol", label: "protocol" },
+  { href: "#world", label: "world" },
+  { href: "#community", label: "comunidad" },
+];
 
 function shortAddress(addr: string) {
   return `${addr.slice(0, 6)}…${addr.slice(-4)}`;
@@ -14,6 +22,8 @@ export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
   const mediaRef = useRef<HTMLDivElement>(null);
   const layerRef = useRef<HTMLDivElement>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const media = mediaRef.current;
@@ -51,17 +61,14 @@ export default function Hero() {
 
     const onScroll = () => {
       const rect = hero.getBoundingClientRect();
-      // How far we've scrolled through the hero
       scrollY = Math.max(0, -rect.top);
     };
 
     const onMove = (e: PointerEvent) => {
       if (!isDesktop()) return;
       const rect = hero.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      mouseX = x;
-      mouseY = y;
+      mouseX = (e.clientX - rect.left) / rect.width - 0.5;
+      mouseY = (e.clientY - rect.top) / rect.height - 0.5;
     };
 
     const onLeave = () => {
@@ -88,6 +95,8 @@ export default function Hero() {
   async function copyContract() {
     try {
       await navigator.clipboard.writeText(LINKS.contract);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1800);
     } catch {
       /* ignore */
     }
@@ -122,80 +131,118 @@ export default function Hero() {
         </div>
       </div>
 
-      <nav className={styles.nav}>
+      <nav className={styles.nav} aria-label="Principal">
         <a href="#top" className={styles.logo}>
           <BrandName />
         </a>
         <div className={styles.navRight}>
           <div className={styles.navLinks}>
-            <a href="#story">01</a>
-            <a href="#specs">02</a>
-            <a href="#protocol">03</a>
-            <a href="#world">04</a>
-            <a href="#community">05</a>
+            {NAV.map((item) => (
+              <a key={item.href} href={item.href}>
+                {item.label}
+              </a>
+            ))}
           </div>
           <ThemeToggle />
+          <button
+            type="button"
+            className={styles.menuBtn}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-nav"
+            aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
+            onClick={() => setMenuOpen((v) => !v)}
+          >
+            {menuOpen ? "close" : "menu"}
+          </button>
         </div>
       </nav>
 
-      <div className={`container ${styles.content}`}>
-        <p className={`${styles.eyebrow} reveal`}>
-          DECENTRALIZED FRIENDS ASSET /// WORLD CHAIN
-        </p>
-
-        <h1 className={`${styles.title} reveal reveal-delay-1`}>
-          <BrandName />
-        </h1>
-
-        <p className={`${styles.tagline} reveal reveal-delay-2`}>
-          FRIENDS PROTOCOL
-          <span className={styles.sep}>·</span>
-          友達ネットワーク
-        </p>
-
-        <p className={`${styles.lead} reveal reveal-delay-3`}>
-          No estamos construyendo solo un token. Estamos construyendo una red
-          de amigos reales — humanos verificados, cero bots, una sola
-          identidad.
-        </p>
-
-        <div className={`${styles.actions} btn-row reveal reveal-delay-4`}>
+      {menuOpen ? (
+        <div id="mobile-nav" className={styles.mobileNav}>
+          {NAV.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              onClick={() => setMenuOpen(false)}
+            >
+              {item.label}
+            </a>
+          ))}
           <a
-            className="btn btn-primary"
             href={LINKS.launchpad}
             target="_blank"
             rel="noopener noreferrer"
+            className="btn btn-primary"
+            onClick={() => setMenuOpen(false)}
           >
-            Compra {TICKER_SYMBOL} <span className="arrow">↗</span>
-          </a>
-          <a
-            className="btn"
-            href={LINKS.telegram}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Telegram <span className="arrow">↗</span>
+            Compra {TICKER_SYMBOL}
           </a>
         </div>
+      ) : null}
 
-        <div className={`${styles.meta} reveal reveal-delay-4`}>
-          <div className={styles.status}>
-            <span className={styles.dot} aria-hidden />
-            ESTADO · LIVE
-            <span className={styles.cursor} aria-hidden>
-              _
-            </span>
-          </div>
-          <div className={styles.metaRow}>
-            <span>WORLD CHAIN // JULIO 2026</span>
-            <button
-              type="button"
-              className={styles.contract}
-              onClick={copyContract}
-              title="Copiar contrato"
+      <div className={`container ${styles.content}`}>
+        <div className={styles.copyBlock}>
+          <p className={`${styles.eyebrow} reveal`}>
+            WORLD CHAIN · HUMANOS VERIFICADOS
+          </p>
+
+          <h1 className={`${styles.title} reveal reveal-delay-1`}>
+            <BrandName />
+          </h1>
+
+          <p className={`${styles.tagline} reveal reveal-delay-2`}>
+            {TICKER_SYMBOL}
+            <span className={styles.sep}>·</span>
+            FRIENDS PROTOCOL
+          </p>
+
+          <p className={`${styles.lead} reveal reveal-delay-3`}>
+            No es solo un token. Es una red de amigos reales — humanos
+            verificados, cero bots.
+          </p>
+        </div>
+
+        <div className={`${styles.ctaPanel} reveal reveal-delay-4`}>
+          <div className={`${styles.actions} btn-row`}>
+            <a
+              className="btn btn-primary"
+              href={LINKS.launchpad}
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              CONTRATO {shortAddress(LINKS.contract)} ⧉
-            </button>
+              Compra {TICKER_SYMBOL} <span className="arrow">↗</span>
+            </a>
+            <a
+              className="btn"
+              href={LINKS.telegram}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Telegram <span className="arrow">↗</span>
+            </a>
+          </div>
+
+          <div className={styles.meta}>
+            <div className={styles.status}>
+              <span className={styles.dot} aria-hidden />
+              LIVE ON WORLD CHAIN
+              <span className={styles.cursor} aria-hidden>
+                _
+              </span>
+            </div>
+            <div className={styles.metaRow}>
+              <span>JUL 2026</span>
+              <button
+                type="button"
+                className={styles.contract}
+                onClick={copyContract}
+                title="Copiar contrato"
+              >
+                {copied
+                  ? "COPIADO ✓"
+                  : `CONTRATO ${shortAddress(LINKS.contract)} ⧉`}
+              </button>
+            </div>
           </div>
         </div>
       </div>

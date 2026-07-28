@@ -61,7 +61,7 @@
 }
 
 .itemTitle::before {
-  content: "$ ";
+  content: "> ";
   color: var(--red);
 }
 

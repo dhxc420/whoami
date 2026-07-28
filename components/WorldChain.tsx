@@ -3,22 +3,21 @@ import styles from "./WorldChain.module.css";
 
 const PILLARS = [
   {
-    title: "world_chain",
+    title: "World Chain",
     body: (
       <>
-        <BrandName /> vive en World Chain: la red diseñada para humanos
-        verificados y adopción global. Integración nativa con el ecosistema
-        World.
+        <BrandName /> vive en World Chain: la red para humanos verificados y
+        adopción global.
       </>
     ),
   },
   {
-    title: "world_id_verify",
-    body: "Red de verificación humana construida sobre World ID. Humanos verificados, comunidad real. Cero bots.",
+    title: "World ID",
+    body: "Verificación humana. Comunidad real. Cero bots.",
   },
   {
-    title: "any_wallet",
-    body: "Compatible con World App y cualquier wallet del ecosistema. Tu llave, tu token, tus amigos.",
+    title: "Cualquier wallet",
+    body: "Compatible con World App y wallets del ecosistema. Tu llave, tu token.",
   },
 ];
 
@@ -28,11 +27,11 @@ export default function WorldChain() {
       <div className="container">
         <div className="section-label">
           <span className="num">04</span>
-          <span>nmap -p human_net</span>
+          <span>world</span>
         </div>
 
-        <h2 className="section-title">humans_only. zero_bots</h2>
-        <p className="section-kana">auth layer · world id</p>
+        <h2 className="section-title">Humanos reales. Cero bots.</h2>
+        <p className="section-kana">auth · world id · any wallet</p>
 
         <div className={styles.grid}>
           {PILLARS.map((p) => (
@@ -44,7 +43,7 @@ export default function WorldChain() {
         </div>
 
         <p className={styles.ticker}>
-          &gt; WLD_CHAIN · WORLD_ID · STATUS:WATCHING · EVERY_WALLET_LEAVES_A_TRACE
+          &gt; WLD_CHAIN · WORLD_ID · EVERY_WALLET_LEAVES_A_TRACE
         </p>
       </div>
     </section>

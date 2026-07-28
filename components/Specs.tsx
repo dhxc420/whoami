@@ -1,44 +1,49 @@
 "use client";
 
+import { useState } from "react";
 import { BrandName, LINKS, TICKER, TICKER_SYMBOL } from "@/lib/brand";
 import styles from "./Specs.module.css";
 
 const SPECS = [
-  { label: "SYMBOL", value: TICKER_SYMBOL, hint: "ticker" },
-  { label: "NAME", value: "fr13nds", hint: "project" },
-  { label: "CHAIN", value: "WORLD CHAIN", hint: "network" },
-  { label: "STD", value: "ERC-20", hint: "token_type" },
-  { label: "LAUNCH", value: "JUL 2026", hint: "ani_launchpad" },
-  { label: "STATUS", value: "LIVE", hint: "mainnet" },
+  { label: "SÍMBOLO", value: TICKER_SYMBOL, hint: "ticker" },
+  { label: "NOMBRE", value: "fr13nds", hint: "proyecto" },
+  { label: "RED", value: "WORLD CHAIN", hint: "network" },
+  { label: "ESTÁNDAR", value: "ERC-20", hint: "token" },
+  { label: "LANZAMIENTO", value: "JUL 2026", hint: "ani launchpad" },
+  { label: "ESTADO", value: "LIVE", hint: "mainnet" },
 ];
 
 const FUNCS = [
   {
-    id: "fn_01",
-    title: "friends_network()",
-    body: "El núcleo es la comunidad. Decisiones y cultura impulsadas por holders reales.",
+    id: "01",
+    title: "Red de amigos",
+    body: "El núcleo es la comunidad. Decisiones impulsadas por holders reales.",
   },
   {
-    id: "fn_02",
-    title: "onchain_audit()",
-    body: "Contrato verificable en World Chain. Sin cajas negras, sin promesas vacías.",
+    id: "02",
+    title: "Transparencia on-chain",
+    body: "Contrato verificable en World Chain. Sin cajas negras.",
   },
   {
-    id: "fn_03",
-    title: "world_bridge()",
+    id: "03",
+    title: "Integración World",
     body: "Nativo en World App / Ani Launchpad para humanos verificados.",
   },
   {
-    id: "fn_04",
-    title: "zero_bots()",
-    body: "Diseñado para personas reales. La identidad humana es la raíz del protocolo.",
+    id: "04",
+    title: "Cero bots",
+    body: "Diseñado para personas reales. La identidad humana es la raíz.",
   },
 ];
 
 export default function Specs() {
+  const [copied, setCopied] = useState(false);
+
   async function copyContract() {
     try {
       await navigator.clipboard.writeText(LINKS.contract);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1800);
     } catch {
       /* ignore */
     }
@@ -49,22 +54,20 @@ export default function Specs() {
       <div className="container">
         <div className="section-label">
           <span className="num">02</span>
-          <span>./inspect --token {TICKER}</span>
+          <span>token · {TICKER}</span>
         </div>
 
-        <h2 className="section-title">tech_spec</h2>
-        <p className="section-kana">hex dump · contract surface</p>
+        <h2 className="section-title">Ficha técnica</h2>
+        <p className="section-kana">contrato · world chain · erc-20</p>
 
         <div className={styles.contractBox}>
           <div>
-            <p className="mono-sm">
-              &gt; CONTRACT · ERC-20 · {TICKER} · WORLD_CHAIN
-            </p>
+            <p className="mono-sm">CONTRATO ERC-20 · {TICKER} · WORLD CHAIN</p>
             <code className={styles.address}>{LINKS.contract}</code>
           </div>
           <div className="btn-row">
             <button type="button" className="btn" onClick={copyContract}>
-              copy_addr
+              {copied ? "copiado ✓" : "copiar"}
             </button>
             <a
               className="btn"
@@ -80,7 +83,7 @@ export default function Specs() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              launchpad <span className="arrow">↗</span>
+              comprar <span className="arrow">↗</span>
             </a>
           </div>
         </div>
@@ -90,16 +93,14 @@ export default function Specs() {
             <article key={s.label} className={styles.spec}>
               <p className="mono-sm">{s.label}</p>
               <p className={styles.specValue}>
-                {s.label === "NAME" ? <BrandName /> : s.value}
+                {s.label === "NOMBRE" ? <BrandName /> : s.value}
               </p>
               <p className={styles.specHint}>#{s.hint}</p>
             </article>
           ))}
         </div>
 
-        <p className={styles.funcsLabel}>
-          # exports — {TICKER} · fr13nds runtime
-        </p>
+        <p className={styles.funcsLabel}># qué hace el protocolo</p>
         <div className={styles.funcGrid}>
           {FUNCS.map((f) => (
             <article key={f.id} className={styles.func}>

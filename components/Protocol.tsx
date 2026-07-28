@@ -3,39 +3,39 @@ import styles from "./Protocol.module.css";
 
 const LAYERS = [
   {
-    id: "0x01",
+    id: "01",
     tag: "sec",
-    title: "SECURITY_RING",
-    body: "Capa de protección que resguarda el protocolo y a la comunidad.",
+    title: "Security ring",
+    body: "Capa de protección del protocolo y la comunidad.",
   },
   {
-    id: "0x02",
+    id: "02",
     tag: "gov",
-    title: "DAO_LAYER",
+    title: "Gobernanza",
     body: "Decisiones impulsadas por amigos, transparentes y on-chain.",
   },
   {
-    id: "0x03",
+    id: "03",
     tag: "core",
-    title: "FRIENDS_CORE",
+    title: "Friends core",
     body: "El corazón de fr13nds. Impulsado por personas reales.",
   },
   {
-    id: "0x04",
+    id: "04",
     tag: "ifc",
-    title: "WORLD_IFACE",
+    title: "World interface",
     body: "Integración nativa con World Chain y humanos verificados.",
   },
   {
-    id: "0x05",
+    id: "05",
     tag: "vault",
-    title: "TREASURY_VAULT",
+    title: "Treasury",
     body: "Gestión transparente de fondos para crecer el ecosistema.",
   },
   {
-    id: "0x06",
+    id: "06",
     tag: "id",
-    title: "HUMAN_VERIFY",
+    title: "Human verify",
     body: "Construido sobre World ID. Humanos reales. Cero bots.",
   },
 ];
@@ -46,17 +46,17 @@ export default function Protocol() {
       <div className="container">
         <div className="section-label">
           <span className="num">03</span>
-          <span>./boot --protocol genesis</span>
+          <span>protocol</span>
         </div>
 
-        <h2 className="section-title">genesis_protocol</h2>
-        <p className="section-kana">stack dump · 6 layers</p>
+        <h2 className="section-title">Genesis protocol</h2>
+        <p className="section-kana">6 capas · world chain build</p>
 
         <div className={styles.panel}>
           <div className={styles.panelHead}>
             <div>
-              <p className="mono-sm">SESSION fr13nds-01 // AUDIT_MODE: ON</p>
-              <p className={styles.edition}>WORLD_CHAIN_BUILD</p>
+              <p className="mono-sm">SESSION fr13nds · AUDIT_MODE: ON</p>
+              <p className={styles.edition}>WORLD CHAIN BUILD</p>
             </div>
             <div className={styles.badges}>
               <span>[OK] WLD_CHAIN</span>
@@ -65,7 +65,7 @@ export default function Protocol() {
           </div>
 
           <p className={styles.tag}>
-            &gt; DECENTRALIZED_FRIENDS_ASSET · GLOBAL_CHAIN
+            &gt; red de amigos · asset descentralizado · cadena global
           </p>
 
           <div className={styles.layers}>
@@ -86,11 +86,11 @@ export default function Protocol() {
               <p className={styles.year}>
                 <BrandName /> / 2026
               </p>
-              <p className={styles.spaced}>friends_protocol.exe</p>
+              <p className={styles.spaced}>friends_protocol</p>
             </div>
             <p className={styles.manifesto}>
-              FROM_NET → CHAIN — <BrandName /> es el nombre. $WHOAMI es el
-              token. Una red de amigos.
+              <BrandName /> es el nombre. $WHOAMI es el token. Una red de
+              amigos.
             </p>
           </div>
         </div>

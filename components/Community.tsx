@@ -7,11 +7,11 @@ export default function Community() {
       <div className="container">
         <div className="section-label">
           <span className="num">05</span>
-          <span>ssh join@fr13nds</span>
+          <span>comunidad</span>
         </div>
 
-        <h2 className="section-title">community_is_the_protocol</h2>
-        <p className="section-kana">connect · buy · verify</p>
+        <h2 className="section-title">La comunidad es el protocolo</h2>
+        <p className="section-kana">compra · telegram · verifica</p>
 
         <p className="section-lead">
           Únete a la red. Compra {TICKER_SYMBOL} en Ani Launchpad. Habla con
@@ -25,7 +25,7 @@ export default function Community() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            buy {TICKER_SYMBOL} <span className="arrow">↗</span>
+            Compra {TICKER_SYMBOL} <span className="arrow">↗</span>
           </a>
           <a
             className="btn"
@@ -33,12 +33,12 @@ export default function Community() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            telegram @Fr13nds_wld <span className="arrow">↗</span>
+            Telegram · @Fr13nds_wld <span className="arrow">↗</span>
           </a>
         </div>
 
         <p className={styles.slogan}>
-          WE_DONT_FOLLOW. WE_VERIFY.
+          WE DON&apos;T FOLLOW. WE VERIFY.
           <span>EL FUTURO ES DE LOS AMIGOS</span>
         </p>
       </div>
