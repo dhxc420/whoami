@@ -19,8 +19,8 @@
   --gutter: clamp(1rem, 4vw, 2rem);
   --scan: rgba(255, 30, 30, 0.028);
   --scan-opacity: 0.28;
-  --grid-line: rgba(255, 30, 30, 0.025);
-  --grid-glow: rgba(255, 30, 30, 0.1);
+  --grid-line: rgba(57, 255, 138, 0.035);
+  --grid-glow: rgba(57, 255, 138, 0.06);
   --vignette: rgba(0, 0, 0, 0.4);
   --hero-fade: #020304;
   --panel-bg: #040607;
@@ -46,8 +46,8 @@
   --white: #0c1014;
   --scan: transparent;
   --scan-opacity: 0;
-  --grid-line: rgba(196, 14, 14, 0.04);
-  --grid-glow: rgba(196, 14, 14, 0.05);
+  --grid-line: rgba(22, 122, 63, 0.05);
+  --grid-glow: rgba(22, 122, 63, 0.04);
   --vignette: transparent;
   --hero-fade: #f4f2ed;
   --panel-bg: #f7f4ee;
@@ -76,13 +76,19 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  /* Soft structural grid — Matrix rain sits above via canvas */
   background-image:
     linear-gradient(var(--grid-line) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
-    radial-gradient(ellipse at 50% -10%, var(--grid-glow), transparent 50%);
-  background-size: 48px 48px, 48px 48px, 100% 80vh;
+    radial-gradient(ellipse at 50% -10%, var(--grid-glow), transparent 55%);
+  background-size: 64px 64px, 64px 64px, 100% 70vh;
   background-attachment: fixed;
   transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+main {
+  position: relative;
+  z-index: 1;
 }
 
 body::before {

@@ -32,7 +32,13 @@
   flex-direction: column;
   gap: 0;
   border: 1px solid var(--line-strong);
+  background: var(--bg-elevated);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.05);
+}
+
+:global([data-theme="dark"]) .timeline {
   background: rgba(0, 0, 0, 0.4);
+  box-shadow: none;
 }
 
 .item {

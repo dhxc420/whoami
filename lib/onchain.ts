@@ -25,6 +25,8 @@ export type OnChainInfo = {
   holdersRaw: number;
   price: string;
   priceUsd: number | null;
+  marketCap: string;
+  marketCapUsd: number | null;
   loading: boolean;
   error: boolean;
 };
@@ -40,6 +42,8 @@ const FALLBACK: OnChainInfo = {
   holdersRaw: 0,
   price: "—",
   priceUsd: null,
+  marketCap: "—",
+  marketCapUsd: null,
   loading: false,
   error: false,
 };
@@ -72,6 +76,14 @@ function formatUsd(price: number): string {
     return `$${s}`;
   }
   return `$${price.toExponential(2)}`;
+}
+
+function formatMarketCap(usd: number): string {
+  if (!Number.isFinite(usd) || usd <= 0) return "—";
+  if (usd >= 1_000_000_000) return `$${(usd / 1e9).toFixed(2)}B`;
+  if (usd >= 1_000_000) return `$${(usd / 1e6).toFixed(2)}M`;
+  if (usd >= 1_000) return `$${(usd / 1e3).toFixed(1)}K`;
+  return `$${usd.toFixed(0)}`;
 }
 
 /** token1_raw / token0_raw from Uniswap V3 slot0 */
@@ -149,6 +161,11 @@ export function useOnChainInfo(): OnChainInfo {
         const decimals = Number.parseInt(decimalsHex, 16);
         const supply = BigInt(supplyHex);
         const formatted = formatSupply(supply, decimals);
+        const supplyHuman = Number(supply) / 10 ** decimals;
+        const marketCapUsd =
+          priceUsd !== null && Number.isFinite(supplyHuman)
+            ? priceUsd * supplyHuman
+            : null;
         if (!cancelled) {
           setInfo({
             chainId: 480,
@@ -162,6 +179,9 @@ export function useOnChainInfo(): OnChainInfo {
             holdersRaw: holders ?? 0,
             price: priceUsd === null ? FALLBACK.price : formatUsd(priceUsd),
             priceUsd,
+            marketCap:
+              marketCapUsd === null ? FALLBACK.marketCap : formatMarketCap(marketCapUsd),
+            marketCapUsd,
             loading: false,
             error: false,
           });

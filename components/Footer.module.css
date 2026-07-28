@@ -1,6 +1,10 @@
 .footer {
   border-top: 1px dashed var(--line-strong);
   padding: 2rem 0 1.75rem;
+  background: var(--panel-bg);
+}
+
+:global([data-theme="dark"]) .footer {
   background: rgba(0, 0, 0, 0.35);
 }
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import MatrixBg from "@/components/MatrixBg";
 import Providers from "@/components/Providers";
 import "./globals.css";
 
@@ -36,6 +37,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
       </head>
       <body>
+        <MatrixBg />
         <Providers>{children}</Providers>
       </body>
     </html>
