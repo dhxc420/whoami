@@ -181,12 +181,7 @@ button {
 }
 
 .section-kana::before {
-  content: "/* ";
-  color: var(--dim);
-}
-
-.section-kana::after {
-  content: " */";
+  content: "# ";
   color: var(--dim);
 }
 
